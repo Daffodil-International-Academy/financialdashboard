@@ -32,7 +32,7 @@ public class CustomUsersDetails extends User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return super.getFirstName();
+        return super.getEmail();
     }
 
     @Override

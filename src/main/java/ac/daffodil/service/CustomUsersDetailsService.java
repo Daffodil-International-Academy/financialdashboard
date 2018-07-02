@@ -30,7 +30,7 @@ public class CustomUsersDetailsService implements UserDetailsService {
         Optional<User> optionalUsers = userRepository.findByEmail(email);
 
         optionalUsers
-                .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("Email not found"));
         return optionalUsers
                 .map(CustomUsersDetails::new).get();
     }

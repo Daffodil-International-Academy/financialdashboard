@@ -38,7 +38,7 @@
                     <input type="text" readonly="true" class="form-control" id="financialId" name="financialId" placeholder="Financial Id" th:field="${newFinancial.financialId}" autofocus="autofocus">
                 </div>
                 <div class="form-group">
-                    <label for="OrganizationId">University Id: </label>
+                    <label for="OrganizationId">Organization Id: </label>
                     <select class="form-control" id="selectOrganization" onchange="myFunction()">
                         <option disabled="disabled" selected="selected" > -- select the Organization ID: --</option>
                         <option th:each="organization : ${organizationes}"
@@ -56,7 +56,7 @@
                     <input type="text" class="form-control" id="collectionCash" name="collectionCash" placeholder="Collection Cash" th:field="${newFinancial.collectionCash}">
                 </div>
                 <div class="form-group">
-                    <label for="collectionBank">Collection Cash: </label>
+                    <label for="collectionBank">Collection Bank: </label>
                     <input type="text" class="form-control" id="collectionBank" name="collectionBank" placeholder="Collection Bank" th:field="${newFinancial.collectionBank}">
                 </div>
                 <div class="form-group">

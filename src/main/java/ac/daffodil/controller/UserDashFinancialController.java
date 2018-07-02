@@ -3,7 +3,11 @@ package ac.daffodil.controller;
 import ac.daffodil.dao.FinancialDao;
 import ac.daffodil.dao.OrganizationDao;
 import ac.daffodil.model.Financial;
+import ac.daffodil.model.Organization;
+import ac.daffodil.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -36,7 +42,17 @@ public class UserDashFinancialController {
     @RequestMapping(value = { "/user/financial/financialPage" }, method = RequestMethod.GET)
     public ModelAndView financialPage(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("financials", financialDao.getAll());
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentLoggedUser = (User) authentication.getPrincipal();
+        List<Financial> financialList = new ArrayList<Financial>();
+        for (Financial financial:financialDao.getAll()) {
+            if(financial.getOrganizationId().equals(currentLoggedUser.getOrganizationId())){
+                financialList.add(financial);
+            }
+        }
+        modelAndView.addObject("financials", financialList);
+
         modelAndView.addObject("organizationes", organizationDao.getAll());
         modelAndView.addObject("message",  request.getParameter("message"));
         Financial financial= new Financial();
@@ -59,7 +75,17 @@ public class UserDashFinancialController {
         ModelAndView modelAndView = new ModelAndView();
         Optional<Financial> financial= financialDao.find(id);
         modelAndView.addObject("newFinancial", financial.get());
-        modelAndView.addObject("financials", financialDao.getAll());
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentLoggedUser = (User) authentication.getPrincipal();
+        List<Financial> financialList = new ArrayList<Financial>();
+        for (Financial newFinancial : financialDao.getAll()) {
+            if(newFinancial.getOrganizationId().equals(currentLoggedUser.getOrganizationId())){
+                financialList.add(newFinancial);
+            }
+        }
+        modelAndView.addObject("financials", financialList);
+
         modelAndView.addObject("organizationes", organizationDao.getAll());
         modelAndView.setViewName("user/userFinancial");
         return modelAndView;

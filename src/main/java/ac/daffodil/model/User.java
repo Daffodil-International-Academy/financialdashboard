@@ -49,6 +49,9 @@ public class User {
     @Column(name = "roleId")
     private long roleId;
 
+    @Column(name="organization_id")
+    private Long organizationId;
+
 
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(name="user_role",joinColumns = @JoinColumn(name = "user_id",
@@ -72,6 +75,7 @@ public class User {
         this.mobileNumber=user.getMobileNumber();
         this.lastName=user.getLastName();
         this.password=user.getPassword();
+        this.organizationId=user.getOrganizationId();
 
     }
 
@@ -150,8 +154,13 @@ public class User {
         this.roles = roles;
     }
 
+    public Long getOrganizationId() {
+        return organizationId;
+    }
 
-
+    public void setOrganizationId(Long organizationId) {
+        this.organizationId = organizationId;
+    }
 
     @Override
     public String toString() {
@@ -164,6 +173,7 @@ public class User {
                 ", mobileNumber='" + mobileNumber + '\'' +
                 ", active=" + active +
                 ", roleId=" + roleId +
+                ", organizationId=" + organizationId +
                 ", roles=" + roles +
                 '}';
     }

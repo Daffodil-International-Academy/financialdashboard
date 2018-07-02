@@ -1,5 +1,6 @@
 package ac.daffodil.controller;
 
+import ac.daffodil.dao.OrganizationDao;
 import ac.daffodil.dao.RoleDao;
 import ac.daffodil.dao.UserDao;
 import ac.daffodil.model.Comments;
@@ -34,11 +35,15 @@ public class UserController {
     @Autowired
     RoleDao roleDao;
 
+    @Autowired
+    OrganizationDao organizationDao;
+
     @RequestMapping(value = { "/userPage" }, method = RequestMethod.GET)
     public ModelAndView index(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("users", userDao.getAll());
         modelAndView.addObject("roles", roleDao.getAll());
+        modelAndView.addObject("organizationes", organizationDao.getAll());
 //        for (Role role : roleDao.getAll()) {
 //            System.out.println(role.getRoleName());
 //        }
@@ -69,6 +74,7 @@ public class UserController {
         modelAndView.addObject("newUser", user.get());
         modelAndView.addObject("users", userDao.getAll());
         modelAndView.addObject("roles", roleDao.getAll());
+        modelAndView.addObject("organizationes", organizationDao.getAll());
         modelAndView.setViewName("admin/adminUser");
         return modelAndView;
     }
