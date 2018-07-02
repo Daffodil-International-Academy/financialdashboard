@@ -29,6 +29,8 @@ public class HomeController {
             return "redirect:/admin/adminDashPage";
         }else if(request.isUserInRole("authority")){
             return "redirect:/authority/authorityDashPage";
+        }else if(request.isUserInRole("centerhead")){
+            return "redirect:/centerHead/centerHeadDashPage";
         }
         return "redirect:/user/userDashPage";
     }

@@ -18,13 +18,21 @@
     <title>Title</title>
 </head>
 <body>
-<th:block th:replace="admin/adminHeader :: header"/>
+<th:block th:replace="centerHead/centerHeadHeader :: header"/>
+
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
-        <h1 class="display-3">Admin</h1>
+        <h1 class="display-3">Center Head</h1>
     </div>
 </div>
-<!--<th:block th:replace="admin/adminFooter :: footer"/>-->
+
+<div role="alert" th:if="${message}" th:class="${'alert alert-dismissible fade show ' + alertClass}">
+    <strong th:text="${message}"></strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
 
 </body>
 </html>

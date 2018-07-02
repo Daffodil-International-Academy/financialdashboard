@@ -51,6 +51,7 @@ public class LoginSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasAnyRole("admin").and().authorizeRequests()
                 .antMatchers("/user/**").hasAnyRole("admin","user")
                 .antMatchers("/authority/**").hasAnyRole("authority")
+                .antMatchers("/centerHead/**").hasAnyRole("centerhead")
                 .and().authorizeRequests().and().exceptionHandling().accessDeniedPage("/403")
                 .and().formLogin()
                 .loginPage("/login")
