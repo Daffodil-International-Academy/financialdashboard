@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>File Page</title>
+</head>
+<body>
+<h1>File Page</h1>
+<form class="form-group" action="/file/saveFile" th:action="@{/file/saveFile}" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="file_id">File ID: </label>
+        <input type="text" readonly class="form-control" name="file_id" id="file_id" th:field="${newFile.file_id}" />
+    </div>
+    <div class="form-group">
+        <label for="exam_id">Exam ID:</label>
+        <select>
+            <option th:each="exam : ${exams}"
+                    th:value="${exam.exam_id}"
+                    th:text="${exam.exam_name}+ ' (' +${exam.exam_id} + ') '"></option>
+        </select>
+        <input type="text" class="form-control" name="exam_id" id="exam_id" th:field="${newFile.exam_id}"/>
+    </div>
+    <div class="form-group">
+        <label for="file_type">File Type:</label>
+        <select class="form-control" th:value="${newFile.file_type}" name="file_type" id="file_type">
+            <option disabled="disabled" selected="selected" > -- select the File Type --</option>
+            <option>Question</option>
+            <option>Answer</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="file">File: </label>
+        <input type="file" class="form-control" name="file" id="file"/>
+    </div>
+    <div class="form-group">
+        <label for="subject_name">Subject Name:</label>
+        <input type="text" class="form-control" name="subject_name" id="subject_name" th:field="${newFile.subject_name}"/>
+    </div>
+    <div class="form-group">
+        <label for="year">Year: </label>
+        <select class="form-control" th:value="${newFile.year}" name="year" id="year">
+            <option disabled="disabled" selected="selected" > -- select the Year --</option>
+            <option>2010</option>
+            <option>2011</option>
+            <option>2012</option>
+            <option>2013</option>
+            <option>2014</option>
+            <option>2015</option>
+            <option>2016</option>
+            <option>2017</option>
+            <option>2018</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a href="#" th:href="@{/file/filePage}" class="btn btn-danger" role="button">New</a>
+</form>
+<table class="table  table-hover table-striped table-bordered">
+    <thead>
+    <tr class="table-secondary">
+        <th scope="col">File Id</th>
+        <th scope="col">Exam Id</th>
+        <th scope="col">File Type</th>
+        <th scope="col">File</th>
+        <th scope="col">Subject Name</th>
+        <th scope="col">Year</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="file : ${files}">
+        <td th:text="${file.file_id}" class="table-light">1</td>
+        <td th:text="${file.exam_id}">2</td>
+        <td th:text="${file.file_type}">3</td>
+        <td th:text="${file.file_name}">4</td>
+        <td th:text="${file.subject_name}">5</td>
+        <td th:text="${file.year}">6</td>
+
+
+        <td  class="table-light"><a th:href="@{/file/files/__${file.file_name}__}"class="btn btn-info btn-sm" role="button">Download</a></td>
+        <td  class="table-light"><a th:href="@{/file/findForFile/__${file.file_id}__}"class="btn btn-info btn-sm" role="button">Comment</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

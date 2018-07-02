@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reply</title>
+</head>
+<body>
+<form class="form-group" th:action="@{/comment/saveChildComment}" method="post">
+    <div class="form-group">
+        <label for="comment_id">Comment ID: </label>
+        <input type="text"  readonly="true" class="form-control" name="comment_id" id="comment_id"  th:field="${newComment.comments.comment_id}"  />
+    </div>
+    <div class="form_group">
+        <label for="sub_comments"> SubComment Comment : </label>
+        <input type="text" class="form-control" name="sub_comments" id="sub_comments"th:field="${newComment.sub_comments}"/>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+</body>
+</html>

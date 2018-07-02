@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" />
+    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+
+    <title>Title</title>
+</head>
+<body>
+<th:block th:replace="user/userHeader :: header"/>
+
+<div class="container">
+
+    <div role="alert" th:if="${message}" th:class="${'alert alert-dismissible fade show ' + alertClass}">
+        <strong th:text="${message}"></strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="row mt-4 mb-4">
+        <div class="offset-md-9 col-md-3">
+            <input class="form-control" id="myInput" type="text" placeholder="Search...">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-md-12">
+            <table class="table">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">File Id</th>
+                    <th scope="col">Exam Name</th>
+                    <th scope="col">File Type</th>
+                    <th scope="col">File Name</th>
+                    <th scope="col">File</th>
+                    <th scope="col">Subject Name</th>
+                    <th scope="col">Year</th>
+                    <th scope="col">Comment</th>
+
+                </tr>
+                </thead>
+                <tbody id="myTable">
+                <tr th:each="file : ${files}">
+                    <td th:text="${file.file_id}" class="table-light">1</td>
+                    <td th:each="exam : ${exams}" th:if="${exam.exam_id == file.exam_id}" th:text="${exam.exam_name}">2</td>
+                    <td th:text="${file.file_type}">3</td>
+                    <td th:text="${file.file_name}">4</td>
+                    <td><a th:href="@{/user/files/__${file.file_name}__}"class="btn btn-info btn-sm" role="button">Download</a></td>
+                    <td th:text="${file.subject_name}">5</td>
+                    <td th:text="${file.year}">6</td>
+                    <td><a th:href="@{/comment/findForFile/__${file.file_id}__}"class="btn btn-info btn-sm" role="button">Review</a></td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--<th:block th:replace="fragments/footer :: footer"/>-->
+
+</body>
+</html>

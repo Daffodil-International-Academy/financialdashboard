@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/login.css}"/>
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <form action="" method="">
+        <div class="login">
+        <table>
+            <tr>
+                <td>First Name</td>
+                <td>:</td>
+                <td><input type="text" name="first_name" placeholder="Enter your first name"/> </td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td>:</td>
+                <td><input type="text" name="last_name" placeholder="Enter your last name"/> </td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>:</td>
+                <td><input type="email" name="email"/></td>
+            </tr>
+            <tr>
+                <td>Mobile No</td>
+                <td>:</td>
+                <td><input type="text" name="mobile_no"/> </td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td>:</td>
+                <td><input type="checkbox" name="status" value="active"/> Active</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td><input type="submit"  value="Sign Up"/> </td>
+            </tr>
+
+
+        </table>
+        </div>
+    </form>
+</div>
+</body>
+</html>

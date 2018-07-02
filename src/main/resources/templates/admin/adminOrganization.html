@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" />
+    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
+
+    <title>Title</title>
+</head>
+<body>
+<th:block th:replace="admin/adminHeader :: header"/>
+<div class="container">
+    <br/>
+    <div class="row">
+        <div class="col col-md-6 mb-4">
+            <form th:action="@{/admin/organization/saveOrganization}" method="post">
+                <div class="form-group">
+                    <label for="organizationId">Organization Id: </label>
+                    <input type="text" readonly="true" class="form-control" id="organizationId" name="organizationId" placeholder="Organization Id" th:field="${newOrganization.organizationId}" autofocus="autofocus">
+                </div>
+                <div class="form-group">
+                    <label for="organizationName">Organization Name: </label>
+                    <input type="text" class="form-control" id="organizationName" name="organizationName" placeholder="Organization Name" th:field="${newOrganization.organizationName}">
+                </div>
+                <button type="submit" class="btn btn-success btn-sm">Save</button>
+                <a th:href="@{/admin/organization/organizationPage}"class="btn btn-info btn-sm" role="button">New</a>
+            </form>
+        </div>
+        <div class="col col-md-6">
+            <table class="table">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">Organization Id</th>
+                    <th scope="col">Organization Name</th>
+                    <th class="text-center" colspan="2" scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="organization : ${organizationes}">
+                    <td th:text="${organization.organizationId}">1</td>
+                    <td th:text="${organization.organizationName}">2</td>
+                    <td><a th:href="@{/admin/organization/findForEditOrganization/__${organization.organizationId}__}"class="btn btn-info btn-sm" role="button">Edit</a></td>
+                    <td><a th:href="@{/admin/organization/deleteOrganization/__${organization.organizationId}__}" class="btn btn-danger btn-sm" role="button">Delete</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--<th:block th:replace="admin/adminFooter :: footer"/>-->
+
+</body>
+</html>

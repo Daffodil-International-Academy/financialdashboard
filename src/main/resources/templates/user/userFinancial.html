@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" />
+    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
+
+    <title>Title</title>
+
+    <script th:inline="javascript">
+        function myFunction() {
+            var x = document.getElementById("selectOrganization").value;
+            document.getElementById("OrganizationId").value = x;
+        }
+
+    </script>
+
+</head>
+<body>
+<th:block th:replace="user/userHeader :: header"/>
+<div class="container">
+    <br/>
+    <div class="row mt-4 mb-4 justify-content-md-center">
+        <div class="col col-md-12 mb-4 ">
+            <form th:action="@{/user/financial/saveFinancial}" method="post">
+                <div class="form-group">
+                    <label for="financialId">Financial id: </label>
+                    <input type="text" readonly="true" class="form-control" id="financialId" name="financialId" placeholder="Financial Id" th:field="${newFinancial.financialId}" autofocus="autofocus">
+                </div>
+                <div class="form-group">
+                    <label for="OrganizationId">University Id: </label>
+                    <select class="form-control" id="selectOrganization" onchange="myFunction()">
+                        <option disabled="disabled" selected="selected" > -- select the Organization ID: --</option>
+                        <option th:each="organization : ${organizationes}"
+                                th:value="${organization.organizationId}"
+                                th:text="${organization.organizationName}+ ' (' +${organization.organizationId} + ') '"></option>
+                    </select>
+                    <input type="text" hidden="true" readonly="true" class="form-control" id="OrganizationId" name="OrganizationId" placeholder="Your Organization Id" th:field="${newFinancial.organizationId}">
+                </div>
+                <div class="form-group">
+                    <label for="lastUpdateDate">Date: </label>
+                    <input type="date" class="form-control" id="lastUpdateDate" name="lastUpdateDate" th:field="${newFinancial.lastUpdateDate}">
+                </div>
+                <div class="form-group">
+                    <label for="collectionCash">Collection Cash: </label>
+                    <input type="text" class="form-control" id="collectionCash" name="collectionCash" placeholder="Collection Cash" th:field="${newFinancial.collectionCash}">
+                </div>
+                <div class="form-group">
+                    <label for="collectionBank">Collection Cash: </label>
+                    <input type="text" class="form-control" id="collectionBank" name="collectionBank" placeholder="Collection Bank" th:field="${newFinancial.collectionBank}">
+                </div>
+                <div class="form-group">
+                    <label for="totalPaymentCash">Total Payment Cash: </label>
+                    <input type="text" class="form-control" id="totalPaymentCash" name="totalPaymentCash" placeholder="Total Payment Cash" th:field="${newFinancial.totalPaymentCash}">
+                </div>
+                <div class="form-group">
+                    <label for="totalPaymentBank">Total Payment Bank: </label>
+                    <input type="text" class="form-control" id="totalPaymentBank" name="totalPaymentBank" placeholder="Total Payment Bank" th:field="${newFinancial.totalPaymentBank}">
+                </div>
+                <div class="form-group">
+                    <label for="balanceBank">Balance Bank: </label>
+                    <input type="text" class="form-control" id="balanceBank" name="balanceBank" placeholder="Balance Bank" th:field="${newFinancial.balanceBank}">
+                </div>
+                <div class="form-group">
+                    <label for="balanceCash">Balance Cash: </label>
+                    <input type="text" class="form-control" id="balanceCash" name="balanceCash" placeholder="Balance Cash" th:field="${newFinancial.balanceCash}">
+                </div>
+                <div class="form-group">
+                    <label for="accountsReceivable">Accounts Receivable: </label>
+                    <input type="text" class="form-control" id="accountsReceivable" name="balanceCash" placeholder="Accounts Receivable" th:field="${newFinancial.accountsReceivable}">
+                </div>
+                <div class="form-group">
+                    <label for="accountsPayable">Accounts Payable: </label>
+                    <input type="text" class="form-control" id="accountsPayable" name="accountsPayable" placeholder="Accounts Payable" th:field="${newFinancial.accountsPayable}">
+                </div>
+                <div class="form-group">
+                    <label for="ondateAdmitedStudents">Ondate Admited Students: </label>
+                    <input type="text" class="form-control" id="ondateAdmitedStudents" name="ondateAdmitedStudents" placeholder="Ondate Admited Students" th:field="${newFinancial.ondateAdmitedStudents}">
+                </div>
+                <div class="form-group">
+                    <label for="newStudents">New Students: </label>
+                    <input type="text" class="form-control" id="newStudents" name="newStudents" placeholder="New Students" th:field="${newFinancial.newStudents}">
+                </div>
+                <button type="submit" class="btn btn-success btn-sm">Save</button>
+                <a th:href="@{/user/financial/financialPage}"class="btn btn-info btn-sm" role="button">New</a>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-md-12">
+            <table class="table">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">Financial id</th>
+                    <th scope="col">Organization Id</th>
+                    <th scope="col">Last Update Date</th>
+                    <th scope="col">Collection Cash</th>
+                    <th scope="col">Collection Bank</th>
+                    <th scope="col">Total Payment Cash</th>
+                    <th scope="col">Total Payment Bank</th>
+                    <th scope="col">Balance Bank</th>
+                    <th scope="col">Balance Bank</th>
+                    <th scope="col">Accounts Receivable</th>
+                    <th scope="col">Accounts Payable</th>
+                    <th scope="col">Ondate Admited Students</th>
+                    <th scope="col">New Students</th>
+                    <th class="text-center" colspan="2" scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="financial : ${financials}">
+                    <td th:text="${financial.financialId}">1</td>
+                    <td th:text="${financial.organizationId}">2</td>
+                    <td th:text="${financial.lastUpdateDate}? ${#calendars.format(financial.lastUpdateDate,'dd MMM yyyy')}">3</td>
+                    <td th:text="${financial.collectionCash}">4</td>
+                    <td th:text="${financial.collectionBank}">5</td>
+                    <td th:text="${financial.totalPaymentCash}">6</td>
+                    <td th:text="${financial.totalPaymentBank}">7</td>
+                    <td th:text="${financial.balanceBank}">8</td>
+                    <td th:text="${financial.balanceCash}">9</td>
+                    <td th:text="${financial.accountsReceivable}">10</td>
+                    <td th:text="${financial.accountsPayable}">11</td>
+                    <td th:text="${financial.ondateAdmitedStudents}">12</td>
+                    <td th:text="${financial.newStudents}">13</td>
+                    <td><a th:href="@{/user/financial/findForEditFinancial/__${financial.financialId}__}"class="btn btn-info btn-sm" role="button">Edit</a></td>
+                    <td><a th:href="@{/user/financial/deleteDepartment/__${financial.financialId}__}" class="btn btn-danger btn-sm" role="button">Delete</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--<th:block th:replace="admin/adminFooter :: footer"/>-->
+
+</body>
+</html>

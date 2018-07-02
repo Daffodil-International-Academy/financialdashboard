@@ -1,0 +1,22 @@
+body{
+    font: 13px/20px 'Lucida Grande', Tahoma, Verdana, sans-serif;
+    color: #404040;
+    background: #d2c5d0;
+}
+
+.container
+{
+    margin: 80px auto;
+    width: 640px;
+}
+
+.login
+{
+    position: relative;
+    width: 320px;
+    padding: 20px 20px 20px;
+    margin: 0;
+    border-radius:3px;
+    background: white;
+
+}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" />
+    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
+
+    <title>Title</title>
+
+    <script>
+        function myFunction() {
+            var x = document.getElementById("SelectUniversity").value;
+            document.getElementById("universityId").value = x;
+        }
+    </script>
+
+</head>
+<body>
+<th:block th:replace="admin/adminHeader :: header"/>
+<div class="container">
+    <br/>
+    <div class="row">
+        <div class="col col-md-6 mb-4">
+            <form th:action="@{/department/saveDepartment}" method="post">
+                <div class="form-group">
+                    <label for="departmentId">Department id: </label>
+                    <input type="text" readonly="true" class="form-control" id="departmentId" name="departmentId" placeholder="Department Id" th:field="${newDepartment.departmentId}" autofocus="autofocus">
+                </div>
+                <div class="form-group">
+                    <label for="universityId">University Id: </label>
+                    <select class="form-control" id="SelectUniversity" onchange="myFunction()">
+                        <option disabled="disabled" selected="selected" > -- select the University ID: --</option>
+                        <option th:each="university : ${universities}"
+                                th:value="${university.universityId}"
+                                th:text="${university.universityName}+ ' (' +${university.universityId} + ') '"></option>
+                    </select>
+                    <input type="text" hidden="true" readonly="true" class="form-control" id="universityId" name="universityId" placeholder="Your University Id" th:field="${newDepartment.universityId}">
+                </div>
+                <div class="form-group">
+                    <label for="departmentName">Department Name: </label>
+                    <input type="text" class="form-control" id="departmentName" name="departmentName" placeholder="Department Name" th:field="${newDepartment.departmentName}">
+                </div>
+                <div class="form-group">
+                    <label for="courseDuration">Course Duration: </label>
+                    <input type="text" class="form-control" id="courseDuration" name="courseDuration" placeholder="Course Duration" th:field="${newDepartment.courseDuration}">
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount: </label>
+                    <input type="text" class="form-control" id="amount" name="amount" placeholder="Location" th:field="${newDepartment.amount}">
+                </div>
+                <button type="submit" class="btn btn-success btn-sm">Save</button>
+                <a th:href="@{/department/departmentPage}"class="btn btn-info btn-sm" role="button">New</a>
+            </form>
+        </div>
+        <div class="col col-md-6">
+            <table class="table">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">Department id</th>
+                    <th scope="col">University Id</th>
+                    <th scope="col">Department Name</th>
+                    <th scope="col">Course Duration</th>
+                    <th scope="col">Amount</th>
+                    <th scope="colgroup" colspan="2">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="department : ${departments}">
+                    <td th:text="${department.departmentId}">1</td>
+                    <td th:text="${department.universityId}">2</td>
+                    <td th:text="${department.departmentName}">3</td>
+                    <td th:text="${department.courseDuration}">4</td>
+                    <td th:text="${department.amount}">5</td>
+                    <td><a th:href="@{/department/findForEditDepartment/__${department.departmentId}__}"class="btn btn-info btn-sm" role="button">Edit</a></td>
+                    <td><a th:href="@{/department/deleteDepartment/__${department.departmentId}__}" class="btn btn-danger btn-sm" role="button">Delete</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--<th:block th:replace="admin/adminFooter :: footer"/>-->
+
+</body>
+</html>

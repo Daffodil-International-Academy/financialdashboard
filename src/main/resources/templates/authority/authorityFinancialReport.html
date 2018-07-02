@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="www.thymeleaf.org" ng-app="FinancialApp">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" />
+    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
+
+    <title>Title</title>
+
+    <script th:inline="javascript">
+
+        var myApp = angular.module("FinancialApp", []);
+        myApp.controller("FinancialCtrl", function ($scope, $http) {
+            $scope.message="";
+            $scope.error_message="";
+            $scope.newFinancial = [];
+
+            $scope.getAllOrganization = function () {
+                $http({
+                    method: 'GET',
+                    url: '/authority/financialReport/getAllOrganization'
+                }).then(
+                    function (response) {
+                        $scope.organizations = response.data;
+                    },
+                    function (reason) {
+                        $scope.error_message = reason.data;
+                    }
+                );
+            };
+
+            $scope.getAllOrganization();
+
+            $scope.findAllFinancialToday = function () {
+                $http({
+                    method: 'GET',
+                    url: '/authority/financialReport/findAllFinancialToday'
+                }).then(
+                    function (response) {
+                        $scope.financialReport = response.data;
+                    },
+                    function (reason) {
+                        $scope.error_message = reason.data;
+                    }
+                );
+            };
+
+            $scope.fieldDate = new Date();
+
+            $scope.findFinancial=function(organization){
+
+                $http({
+                    method: 'POST',
+                    url: '/authority/financialReport/findFinancial',
+                    data: angular.toJson(organization.organizationId),
+                    headers:{
+                        'Content-Type':'application/json'
+                    }
+
+                }).then(
+                    function(response){
+                        $scope.financials= response.data;
+                    },
+                    function(reason){
+                        $scope.error_message = reason.data;
+                    }
+                );
+
+            };
+        });
+
+    </script>
+
+</head>
+<body ng-controller="FinancialCtrl">
+<th:block th:replace="authority/authorityHeader :: header"/>
+<div class="container">
+    <div class="row mb-2 mt-2">
+        <div class="col-md-8">
+        </div>
+        <div class="col-md-4">
+            <a class="nav-link text-center" th:href="@{/authority/financialReport/financialReportAllPage}" type="button">See Today`s Total Financial Report</a>
+        </div>
+    </div>
+    <div class="row mb-2 mt-2">
+        <div class="col-md-8">
+            <h6>Last Updated Date</h6>
+        </div>
+        <div class="col-md-4">
+            <input type="date" class="form-control" ng-model="fieldDate" >
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-8">
+            <h6>Concern Name</h6>
+        </div>
+        <div class="col-md-4">
+            <select name="organization"
+                    ng-model="organization"
+                    class="form-control"
+                    ng-options="organization.organizationName for organization in organizations" ng-change='findFinancial(organization)'>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped table-bordered mb-4" ng-repeat="financialReport in financials" ng-if="(financialReport.lastUpdateDate | date:'yyyy-MM-dd') == (fieldDate | date:'yyyy-MM-dd')">
+                <thead>
+                <tr>
+                    <th class="font-weight-bold">Concern Name</th>
+                    <th class="font-weight-bold">Amount(Tk.)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Collection(Cash)</td>
+                    <td>{{financialReport.collectionCash}}</td>
+                </tr>
+                <tr>
+                    <td>Collection(Bank)</td>
+                    <td>{{financialReport.collectionBank}}</td>
+                </tr>
+                <tr>
+                    <th class="font-weight-bold">Total Collection</th>
+                    <td class="font-weight-bold">{{financialReport.collectionCash + financialReport.collectionBank}}</td>
+                </tr>
+                <tr>
+                    <td>Total Payment(Cash)</td>
+                    <td>{{financialReport.totalPaymentCash}}</td>
+                </tr>
+                <tr>
+                    <td>Total Payment(Bank)</td>
+                    <td>{{financialReport.totalPaymentBank}}</td>
+                </tr>
+                <tr>
+                    <th class="font-weight-bold">Total Payment</th>
+                    <td class="font-weight-bold">{{financialReport.totalPaymentCash + financialReport.totalPaymentBank}}</td>
+                </tr>
+                <tr>
+                    <th class="font-weight-bold" colspan="2">Balance (As on Date)</th>
+                </tr>
+                <tr>
+                    <th>Bank</th>
+                    <td class="font-weight-bold">{{financialReport.balanceBank}}</td>
+                </tr>
+                <tr>
+                    <th>Cash</th>
+                    <td class="font-weight-bold">{{financialReport.balanceCash}}</td>
+                </tr>
+                <tr>
+                    <th><h6>Accounts Receivable (Month End)</h6></th>
+                    <td class="font-weight-bold">{{financialReport.accountsReceivable}}</td>
+                </tr>
+                <tr>
+                    <th><h6>Accounts Payble (Month End)</h6></th>
+                    <td class="font-weight-bold">{{financialReport.accountsPayable}}</td>
+                </tr>
+                <tr>
+                    <th><h6>Admission/Client</h6></th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>As On Date Admitted Students/Client</th>
+                    <td class="font-weight-bold">{{financialReport.ondateAdmitedStudents}}</td>
+                </tr>
+                <tr>
+                    <th>Todays new Admission/Client</th>
+                    <td class="font-weight-bold">{{financialReport.newStudents}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{{message}}
+{{error_message}}
+
+</body>
+</html>

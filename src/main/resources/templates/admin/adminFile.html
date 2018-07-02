@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" />
+    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
+
+    <title>Title</title>
+
+    <script>
+        function myFunction() {
+            var x = document.getElementById("selectExam").value;
+            document.getElementById("exam_id").value = x;
+        }
+    </script>
+
+</head>
+<body>
+<th:block th:replace="admin/adminHeader :: header"/>
+<div class="container">
+    <br/>
+    <div class="row mb-4">
+        <div class="col col-md-6">
+            <form th:action="@{/file/saveFile}" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="file_id">File Id: </label>
+                    <input type="text" readonly="true" class="form-control" id="file_id" name="file_id" placeholder="Your file Id" th:field="${newFile.file_id}" autofocus="autofocus">
+                </div>
+                <div class="form-group">
+                    <label for="exam_id">Exam Id: </label>
+                    <select class="form-control" id="selectExam" onchange="myFunction()">
+                        <option disabled="disabled" selected="selected" > -- select the Exam ID: --</option>
+                        <option th:each="exam : ${exams}"
+                                th:value="${exam.exam_id}"
+                                th:text="${exam.exam_name}+ ' (' +${exam.exam_id} + ') '"></option>
+                    </select>
+                    <input type="text" hidden="true" readonly="true" class="form-control" id="exam_id" name="exam_id" placeholder="Your exam Id" th:field="${newFile.exam_id}">
+                </div>
+                <div class="form-group">
+                    <label for="file_type">File Type: </label>
+                    <select class="form-control" th:value="${newFile.file_type}" name="file_type" id="file_type">
+                        <option disabled="disabled" selected="selected" > -- select the File Type --</option>
+                        <option>Question</option>
+                        <option>Answer</option>
+                    </select>
+                </div>
+        </div>
+        <div class="col col-md-6">
+                <div class="form-group">
+                    <label for="file">File: </label>
+                    <input type="file" class="form-control" id="file" name="file" >
+                </div>
+                <div class="form-group">
+                    <label for="subject_name">Subject Name: </label>
+                    <select class="form-control" th:value="${newFile.subject_name}" name="subject_name" id="subject_name">
+                        <option disabled="disabled" selected="selected" > -- select Subject Name --</option>
+                        <option>Bangla</option>
+                        <option>English</option>
+                        <option>Math</option>
+                        <option>Physics</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="year">Year: </label>
+                    <select class="form-control" th:value="${newFile.year}" name="year" id="year">
+                        <option disabled="disabled" selected="selected" > -- select the Year --</option>
+                        <option>2015</option>
+                        <option>2016</option>
+                        <option>2017</option>
+                        <option>2018</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success btn-sm">Save</button>
+                <a th:href="@{/file/filePage}"class="btn btn-info btn-sm" role="button">New</a>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-md-12">
+            <table class="table">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">File Id</th>
+                    <th scope="col">Exam Id</th>
+                    <th scope="col">File Type</th>
+                    <th scope="col">File Name</th>
+                    <th scope="col">File</th>
+                    <th scope="col">Subject Name</th>
+                    <th scope="col">Year</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="file : ${files}">
+                    <td th:text="${file.file_id}" class="table-light">1</td>
+                    <td th:text="${file.exam_id}">2</td>
+                    <td th:text="${file.file_type}">3</td>
+                    <td th:text="${file.file_name}">4</td>
+                    <td><a href="/file/files/4" th:href="@{/file/files/__${file.file_name}__}"class="btn btn-info btn-sm" role="button">Download</a></td>
+                    <td th:text="${file.subject_name}">5</td>
+                    <td th:text="${file.year}">6</td>
+
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--<th:block th:replace="admin/adminFooter :: footer"/>-->
+
+</body>
+</html>
