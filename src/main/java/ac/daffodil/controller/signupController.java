@@ -23,7 +23,8 @@ import java.util.Set;
  * Created by Muiduzzaman Lipu on 03-Apr-18.
  */
 @Controller
-public class signupController {
+public class
+signupController {
 
     @Autowired
     BCryptPasswordEncoder passwordEncoder;

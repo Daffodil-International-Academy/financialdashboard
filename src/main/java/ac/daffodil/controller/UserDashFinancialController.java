@@ -51,9 +51,15 @@ public class UserDashFinancialController {
                 financialList.add(financial);
             }
         }
-        modelAndView.addObject("financials", financialList);
+        List<Organization> organizationList = new ArrayList<Organization>();
+        for (Organization organization : organizationDao.getAll()) {
+            if(organization.getOrganizationId().equals(currentLoggedUser.getOrganizationId())){
+                organizationList.add(organization);
+            }
+        }
 
-        modelAndView.addObject("organizationes", organizationDao.getAll());
+        modelAndView.addObject("financials", financialList);
+        modelAndView.addObject("organizationes", organizationList);
         modelAndView.addObject("message",  request.getParameter("message"));
         Financial financial= new Financial();
         financial.setLastUpdateDate(new Date());
@@ -84,9 +90,15 @@ public class UserDashFinancialController {
                 financialList.add(newFinancial);
             }
         }
-        modelAndView.addObject("financials", financialList);
+        List<Organization> organizationList = new ArrayList<Organization>();
+        for (Organization organization : organizationDao.getAll()) {
+            if(organization.getOrganizationId().equals(currentLoggedUser.getOrganizationId())){
+                organizationList.add(organization);
+            }
+        }
 
-        modelAndView.addObject("organizationes", organizationDao.getAll());
+        modelAndView.addObject("financials", financialList);
+        modelAndView.addObject("organizationes", organizationList);
         modelAndView.setViewName("user/userFinancial");
         return modelAndView;
     }
