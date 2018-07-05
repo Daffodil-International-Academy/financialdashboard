@@ -15,16 +15,53 @@
     <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
 
-    <title>Title</title>
+    <title>Admin</title>
 </head>
-<body>
+<body th:style="'background:url(' + @{/assets/images/background.jpg} + ');'">
 <th:block th:replace="admin/adminHeader :: header"/>
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
         <h1 class="display-3">Admin</h1>
     </div>
 </div>
-<!--<th:block th:replace="admin/adminFooter :: footer"/>-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <a href="https://daffodilvarsity.edu.bd/" class="btn " style="background-color: #E3F2FD; color: #171819"><img class="card-img-top img-thumbnail" th:src="@{/assets/images/logo-diu.png}" alt="Card image cap"></a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <a href="http://diit.info/" class="btn " style="background-color: #E3F2FD; color: #171819"><img class="card-img-top img-thumbnail" th:src="@{/assets/images/logo-diit.png}" alt="Card image cap"></a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <a href="http://daffodil.ac/" class="btn " style="background-color: #E3F2FD; color: #171819"><img class="card-img-top img-thumbnail" th:src="@{/assets/images/logo-dia.png}" alt="Card image cap"></a>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <a href="http://dipti.com.bd/" class="btn " style="background-color: #E3F2FD; color: #171819"><img class="card-img-top" th:src="@{/assets/images/logo-dipti.jpg}" alt="Card image cap"></a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <a href="http://dis.edu.bd/" class="btn " style="background-color: #E3F2FD; color: #171819"><img class="card-img-top" th:src="@{/assets/images/logo-dis.png}" alt="Card image cap"></a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <a href="http://daffodil-bd.com/#" class="btn " style="background-color: #E3F2FD; color: #171819"><img class="card-img-top" th:src="@{/assets/images/logo-dc.png}" alt="Card image cap"></a>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:replace="admin/adminFooter :: footer"/>
 
 </body>
 </html>

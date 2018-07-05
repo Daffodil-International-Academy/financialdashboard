@@ -50,4 +50,12 @@ public class UserDao implements GenericInterface<User>{
     public Optional<User> findByUsername(String userName) {
         return userRepository.findByFirstName(userName);
     }
+
+    public User findByEmail(String email){
+        return userRepository.findByEmail(email);
+    }
+
+    public void updateUserPassword(String password,Long id){
+        userRepository.updatePassword(password,id);
+    }
 }

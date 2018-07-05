@@ -4,6 +4,7 @@ package ac.daffodil.config;
 import ac.daffodil.repository.UserRepository;
 import ac.daffodil.service.CustomUsersDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -13,6 +14,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import javax.sql.DataSource;
 
 /**
  * Created by Uzzal on 4/1/2018.
@@ -22,6 +27,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class LoginSecurity extends WebSecurityConfigurerAdapter {
 
+    @Qualifier("dataSource")
+    @Autowired
+    DataSource dataSource;
 
     @Autowired
     CustomUsersDetailsService userDetailsService;
@@ -61,34 +69,19 @@ public class LoginSecurity extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .and().logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/")
+                .deleteCookies("JSESSIONID").and().rememberMe()
+                .rememberMeCookieName("simple-cookie")
+                .tokenValiditySeconds(24*60*60)
+                .tokenRepository(persistentTokenRepository());
 
 
     }
 
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//
-//        http.csrf().disable();
-//        http.authorizeRequests()
-//                .antMatchers("/admin/**").hasAnyRole("admin")
-//
-//                .and()
-//                .formLogin();
-//    }
-
-    private PasswordEncoder getPasswordEncoder() {
-        return new PasswordEncoder() {
-            @Override
-            public String encode(CharSequence charSequence) {
-                return charSequence.toString();
-            }
-
-            @Override
-            public boolean matches(CharSequence charSequence, String s) {
-                return true;
-            }
-        };
+    private PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl tokenRepository=new JdbcTokenRepositoryImpl();
+        tokenRepository.setDataSource(dataSource);
+        return tokenRepository;
     }
+
 }

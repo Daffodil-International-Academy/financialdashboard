@@ -11,8 +11,8 @@
 </head>
 <body>
 <th:block th:fragment="header">
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-        <a class="navbar-brand" th:href="@{/user/userDashPage}">OaiHub</a>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #E9ECEF;">
+        <a class="navbar-brand" th:href="@{/user/userDashPage}"><img th:src="@{/assets/images/logo.png}" alt="logo" ></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -27,6 +27,9 @@
                 </li>
             </ul>
             <ul class="navbar-nav my-2 my-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/forgot-password/processForgotPasswordWithButton}">Change Password</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/logout}">Logout</a>
                 </li>

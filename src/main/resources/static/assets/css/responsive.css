@@ -1,0 +1,149 @@
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+
+
+    body {
+        height: 960px;
+    }
+
+    img {
+        padding-top: 65px;
+        padding-bottom: 70px;
+    }
+
+
+    .main-section .col-md-6 {
+        padding: 70px 90px 60px 70px;
+    }
+
+    .main-section .col-md-6 p {
+        padding-bottom: 30px;
+    }
+
+    .main-section .col-md-5 {
+        padding: 30px 40px 22px 35px;
+    }
+
+    .form-header {
+        padding-bottom: 15px;
+    }
+
+    .reset {
+        padding-left: 30px;
+    }
+
+    .main-section .col-md-1 {
+        height: 400px;
+    }
+
+}
+
+@media only screen and (min-width: 601px) and (max-width: 767px) {
+
+    body {
+        height: 900px;
+    }
+
+    img {
+        padding-top: 30px;
+        padding-bottom: 35px;
+    }
+
+    .main-section .col-md-6 {
+        padding: 50px 60px 45px 55px;
+    }
+
+    .main-section .col-md-6 p {
+        padding-bottom: 30px;
+    }
+
+    .main-section .col-md-5 {
+        padding: 30px 40px 27px 55px;
+    }
+
+    .form-header {
+        padding-bottom: 15px;
+    }
+
+    .reset {
+        padding-left: 150px;
+    }
+
+    .main-section .col-md-1 {
+        height: 50px;
+    }
+
+}
+
+
+
+@media only screen and (min-width: 321px) and (max-width: 600px) {
+
+    body {
+        height: 900px;
+    }
+
+    img {
+        padding-top: 30px;
+        padding-bottom: 35px;
+    }
+
+    .main-section .col-md-6 {
+        padding: 50px 60px 45px 55px;
+    }
+
+    .main-section .col-md-6 p {
+        padding-bottom: 30px;
+    }
+
+    .main-section .col-md-5 {
+        padding: 30px 40px 27px 55px;
+    }
+
+    .form-header {
+        padding-bottom: 15px;
+    }
+
+    .reset {
+        padding-left: 70px;
+    }
+
+    .main-section .col-md-1 {
+        height: 50px;
+    }
+
+}
+
+@media only screen and (max-width: 320px) {
+    body {
+        height: 900px;
+    }
+
+    img {
+        padding-top: 30px;
+        padding-bottom: 35px;
+    }
+
+    .main-section .col-md-6 {
+        padding: 42px 50px 37px 45px;
+    }
+
+    .main-section .col-md-6 p {
+        padding-bottom: 30px;
+    }
+    .main-section .col-md-5 {
+        padding: 22px 34px 20px 25px;
+    }
+
+    .form-header {
+        padding-bottom: 15px;
+    }
+
+    .reset {
+        padding-left: 60px;
+    }
+
+    .main-section .col-md-1 {
+        height: 50px;
+    }
+
+}

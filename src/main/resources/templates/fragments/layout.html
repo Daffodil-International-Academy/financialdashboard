@@ -17,81 +17,22 @@
 
     <title>Title</title>
 </head>
-<body>
+<body th:style="'background:url(' + @{/assets/images/background.jpg} + ');'">
 <th:block th:replace="fragments/header :: header"/>
 
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid" style="background-color: #ffffff">
     <div class="container">
         <h1 class="display-3">Financial DashBoard</h1>
     </div>
 </div>
+
+<img th:src="@{/assets/images/we.jpg}" class="img-fluid" alt="Responsive image" style="width: 100%; height: auto">
 
 <div role="alert" th:if="${message}" th:class="${'alert alert-dismissible fade show ' + alertClass}">
     <strong th:text="${message}"></strong>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
-</div>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Daffodil International University</h5>
-                    <p class="card-text">Daffodil International University is a co-educational private university located in Dhanmondi, Dhaka, Bangladesh. It was established on 24 January 2002 under the Private University Act, 1992.</p>
-                    <a href="https://daffodilvarsity.edu.bd/" class="btn" style="background-color: #E3F2FD; color: #171819">Visit</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Daffodil Institute of Information Technology</h5>
-                    <p class="card-text">Daffodil Institute of Information Technology or DIIT is an IT education provider in Bangladesh established in 1997.</p>
-                    <a href="http://diit.info/" class="btn " style="background-color: #E3F2FD; color: #171819">Visit</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Daffodil International Academy</h5>
-                    <p class="card-text">Is a new pathway emerged from the oldest private institution, Daffodil Institute of IT (DIIT) which started its initial journey back in 1997</p>
-                    <a href="http://daffodil.ac/" class="btn " style="background-color: #E3F2FD; color: #171819">Visit</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row mt-4">
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Daffodil International Professional Training Institute</h5>
-                    <p class="card-text">DIPTI will operate under Daffodil Computers Ltd (DCL). DCL started its business from 1990 and incorporated on January 26, 1998.</p>
-                    <a href="http://dipti.com.bd/" class="btn " style="background-color: #E3F2FD; color: #171819">Visit</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Daffodil International School</h5>
-                    <p class="card-text">Daffodil International School is owned by Daffodil Family, it was founded in 2000. It has branches in Chandpur, Dhanmondi, Gazipur, Shohanbag, and Uttara.</p>
-                    <a href="http://dis.edu.bd/" class="btn " style="background-color: #E3F2FD; color: #171819">Visit</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Daffodil Computers Ltd.</h5>
-                    <p class="card-text">Daffodil Computers Limited is the first initiative of Daffodil Group came into being in the year of 1990.</p>
-                    <a href="http://daffodil-bd.com/#" class="btn " style="background-color: #E3F2FD; color: #171819">Visit</a>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <!--<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">-->

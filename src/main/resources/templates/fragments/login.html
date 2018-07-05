@@ -8,73 +8,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" />
-    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.3/css/mdb.min.css" rel="stylesheet">
 
-    <title>Title</title>
+    <link rel="stylesheet" media="screen" th:href="@{/assets/css/login.css}" />
+    <!--<link rel="stylesheet" th:href="@{/assets/css/responsive.css}" />-->
+
+    <title>Login</title>
 </head>
-<body>
-<th:block th:replace="fragments/header :: header"/>
-<div class="container">
-
-    <div class="row mb-4 justify-content-md-center">
-        <div class="col-md-6">
-
-            <div role="alert" th:if="${message}" th:class="${'alert alert-dismissible fade show ' + alertClass}">
-                <strong th:text="${message}"></strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <form th:action="@{/login}" method="POST" class="form-signin">
-                <div class="form-group">
-                    <label for="username">Email</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter Email" autofocus="autofocus">
+<body th:style="'background:url(' + @{/assets/images/background.jpg} + ');'">
+<section>
+    <div class="wrapper">
+        <div class="container">
+            <div class="row image-section">
+                <div class="col-md-12">
+                    <a href="/"><img class="img-fluid center-block" src="assets/images/logo.png" /></a>
                 </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
-                </div>
-                <button  class="btn btn-info" name="Submit" value="Login" type="Submit" th:text="Login">Submit</button>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="loginModalLabel">Login</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form th:action="@{/login}" method="POST" class="form-signin">
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Enter UserName" autofocus="autofocus">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
-                    </div>
-                    <button  class="btn btn-info" name="Submit" value="Login" type="Submit" th:text="Login">Submit</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
             </div>
         </div>
+        <div class="container main-section">
+            <div class="row">
+                <div class="col-md-6 test-section ">
+                    <h3>Welcome</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                    <a href="#"><button class="btn-text">know more</button></a>
+                </div>
+                <div class="col-md-5 form-section">
+
+                    <form th:action="@{/login}" method="POST" class="form-signin">
+                        <h3 class="form-header text-uppercase font-weight-bold">Sign in</h3>
+
+
+                        <div class="md-form">
+
+                            <input type="email" id="username" name="username" class="form-control">
+                            <label for="username"><i class="fa fa-envelope"></i><span class="span-1">Email Here</span></label>
+                        </div>
+
+
+                        <div class="md-form">
+
+                            <input type="password" id="password" name="password" class="form-control">
+                            <label for="password"> <i class="fa fa-lock"></i><span class="span-2">Password</span></label>
+                        </div>
+
+                        <div class="sign-in">
+                            <button class="btn-form" name="Submit" type="Submit">Sign In</button>
+                        </div>
+                        <div class="row">
+
+                            <div class="form-check remember-check">
+                                <input type="checkbox" class="form-check-input" id="check" name="remember-me">
+                                <label for="check" class="form-check-label remember"><p>Remember Me</p></label>
+                            </div>
+                            <a class="reset" th:href="@{/forgot-password}">Forget Password</a>
+                        </div>
+
+                    </form>
+
+
+
+
+
+                </div>
+
+                <div class="col-md-1">
+
+                </div>
+
+            </div>
+        </div>
     </div>
-</div>
-<!--<th:block th:replace="fragments/footer :: footer"/>-->
+
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.3/js/mdb.min.js"></script>
+
+<script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
+<script th:src="@{/webjars/mdbootstrap-bootstrap-material-design/4.5.3/js/mdb.min.js}"></script>
 
 </body>
 </html>
