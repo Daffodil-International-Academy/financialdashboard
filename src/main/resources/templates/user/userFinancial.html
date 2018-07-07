@@ -39,49 +39,50 @@
                 </div>
                 <div class="form-group">
                     <label for="OrganizationId">Organization Id: </label>
-                    <select class="form-control" id="selectOrganization" onchange="myFunction()">
+                    <select class="form-control" id="selectOrganization" onchange="myFunction()" required>
                         <option disabled="disabled" selected="selected" > -- select the Organization ID: --</option>
                         <option th:each="organization : ${organizationes}"
                                 th:value="${organization.organizationId}"
-                                th:text="${organization.organizationName}+ ' (' +${organization.organizationId} + ') '"></option>
+                                th:text="${organization.organizationName}+ ' (' +${organization.organizationId} + ') '"
+                                th:selected="${#strings.toString(organization.organizationId) == #strings.toString(newFinancial.organizationId)}"></option>
                     </select>
                     <input type="text" hidden="true" readonly="true" class="form-control" id="OrganizationId" name="OrganizationId" placeholder="Your Organization Id" th:field="${newFinancial.organizationId}">
                 </div>
                 <div class="form-group">
                     <label for="lastUpdateDate">Date: </label>
-                    <input type="date" class="form-control" id="lastUpdateDate" name="lastUpdateDate" th:field="${newFinancial.lastUpdateDate}">
+                    <input required type="date" class="form-control" id="lastUpdateDate" name="lastUpdateDate" th:field="${newFinancial.lastUpdateDate}">
                 </div>
                 <div class="form-group">
                     <label for="collectionCash">Collection Cash: </label>
-                    <input type="text" class="form-control" id="collectionCash" name="collectionCash" placeholder="Collection Cash" th:field="${newFinancial.collectionCash}">
+                    <input required type="text" class="form-control" id="collectionCash" name="collectionCash" placeholder="Collection Cash" th:field="${newFinancial.collectionCash}">
                 </div>
                 <div class="form-group">
                     <label for="collectionBank">Collection Bank: </label>
-                    <input type="text" class="form-control" id="collectionBank" name="collectionBank" placeholder="Collection Bank" th:field="${newFinancial.collectionBank}">
+                    <input required type="text" class="form-control" id="collectionBank" name="collectionBank" placeholder="Collection Bank" th:field="${newFinancial.collectionBank}">
                 </div>
                 <div class="form-group">
                     <label for="totalPaymentCash">Total Payment Cash: </label>
-                    <input type="text" class="form-control" id="totalPaymentCash" name="totalPaymentCash" placeholder="Total Payment Cash" th:field="${newFinancial.totalPaymentCash}">
+                    <input required type="text" class="form-control" id="totalPaymentCash" name="totalPaymentCash" placeholder="Total Payment Cash" th:field="${newFinancial.totalPaymentCash}">
                 </div>
                 <div class="form-group">
                     <label for="totalPaymentBank">Total Payment Bank: </label>
-                    <input type="text" class="form-control" id="totalPaymentBank" name="totalPaymentBank" placeholder="Total Payment Bank" th:field="${newFinancial.totalPaymentBank}">
+                    <input required type="text" class="form-control" id="totalPaymentBank" name="totalPaymentBank" placeholder="Total Payment Bank" th:field="${newFinancial.totalPaymentBank}">
                 </div>
                 <div class="form-group">
                     <label for="balanceBank">Balance Bank: </label>
-                    <input type="text" class="form-control" id="balanceBank" name="balanceBank" placeholder="Balance Bank" th:field="${newFinancial.balanceBank}">
+                    <input required type="text" class="form-control" id="balanceBank" name="balanceBank" placeholder="Balance Bank" th:field="${newFinancial.balanceBank}">
                 </div>
                 <div class="form-group">
                     <label for="balanceCash">Balance Cash: </label>
-                    <input type="text" class="form-control" id="balanceCash" name="balanceCash" placeholder="Balance Cash" th:field="${newFinancial.balanceCash}">
+                    <input required type="text" class="form-control" id="balanceCash" name="balanceCash" placeholder="Balance Cash" th:field="${newFinancial.balanceCash}">
                 </div>
                 <div class="form-group">
                     <label for="accountsReceivable">Accounts Receivable: </label>
-                    <input type="text" class="form-control" id="accountsReceivable" name="balanceCash" placeholder="Accounts Receivable" th:field="${newFinancial.accountsReceivable}">
+                    <input required type="text" class="form-control" id="accountsReceivable" name="balanceCash" placeholder="Accounts Receivable" th:field="${newFinancial.accountsReceivable}">
                 </div>
                 <div class="form-group">
                     <label for="accountsPayable">Accounts Payable: </label>
-                    <input type="text" class="form-control" id="accountsPayable" name="accountsPayable" placeholder="Accounts Payable" th:field="${newFinancial.accountsPayable}">
+                    <input required type="text" class="form-control" id="accountsPayable" name="accountsPayable" placeholder="Accounts Payable" th:field="${newFinancial.accountsPayable}">
                 </div>
                 <div class="form-group">
                     <label for="ondateAdmitedStudents">Ondate Admited Students: </label>
@@ -101,26 +102,24 @@
             <table id="finacialTable" class="table table-striped table-bordered">
                 <thead class="thead-light">
                 <tr>
-                    <th scope="col">Financial id</th>
-                    <th scope="col">Organization Id</th>
-                    <th scope="col">Last Update Date</th>
-                    <th scope="col">Collection Cash</th>
-                    <th scope="col">Collection Bank</th>
-                    <th scope="col">Total Payment Cash</th>
-                    <th scope="col">Total Payment Bank</th>
-                    <th scope="col">Balance Bank</th>
-                    <th scope="col">Balance Bank</th>
+                    <th scope="col">Organization</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Cash Collection</th>
+                    <th scope="col">Bank Collection</th>
+                    <th scope="col">Total Cash Payment</th>
+                    <th scope="col">Total Bank Payment</th>
+                    <th scope="col">Bank Balance</th>
+                    <th scope="col">Cash Balance</th>
                     <th scope="col">Accounts Receivable</th>
                     <th scope="col">Accounts Payable</th>
-                    <th scope="col">Ondate Admited Students</th>
+                    <th scope="col">Admited Students(Ondate)</th>
                     <th scope="col">New Students</th>
                     <th class="text-center" colspan="2" scope="col">Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="financial : ${financials}">
-                    <td th:text="${financial.financialId}">1</td>
-                    <td th:text="${financial.organizationId}">2</td>
+                    <td th:each="organization : ${organizationes}" th:if="${organization.organizationId == financial.organizationId}" th:text="${organization.organizationName}">2</td>
                     <td th:text="${financial.lastUpdateDate}? ${#calendars.format(financial.lastUpdateDate,'dd MMM yyyy')}">3</td>
                     <td th:text="${financial.collectionCash}">4</td>
                     <td th:text="${financial.collectionBank}">5</td>

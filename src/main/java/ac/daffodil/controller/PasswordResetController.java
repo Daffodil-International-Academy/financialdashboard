@@ -75,7 +75,6 @@ public class PasswordResetController {
         String updatedPassword = mvcConfig.passwordEncoder().encode(form.getPassword());
 
         userDao.updateUserPassword(updatedPassword,user.getId());
-        tokenRepository.delete(token);
 
         redirectAttributes.addFlashAttribute("message", "Password Change Successfully");
         redirectAttributes.addFlashAttribute("alertClass", "alert-success");
@@ -87,6 +86,8 @@ public class PasswordResetController {
         }else if(request.isUserInRole("user")){
             return "redirect:/user/userDashPage";
         }
+
+        tokenRepository.delete(token);
 
         return "redirect:/login";
     }
