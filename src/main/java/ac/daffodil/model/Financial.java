@@ -101,7 +101,10 @@ public class Financial {
     }
 
     public void setCollectionCash(Long collectionCash) {
-        this.collectionCash = collectionCash;
+        if (collectionCash == null)
+            this.collectionCash = 0L;
+        else
+            this.collectionCash = collectionCash;
     }
 
     public Long getCollectionBank() {
@@ -109,7 +112,10 @@ public class Financial {
     }
 
     public void setCollectionBank(Long collectionBank) {
-        this.collectionBank = collectionBank;
+        if (collectionBank == null)
+            this.collectionBank = 0L;
+        else
+            this.collectionBank = collectionBank;
     }
 
     public Long getTotalPaymentCash() {
@@ -117,7 +123,10 @@ public class Financial {
     }
 
     public void setTotalPaymentCash(Long totalPaymentCash) {
-        this.totalPaymentCash = totalPaymentCash;
+        if (totalPaymentCash == null)
+            this.totalPaymentCash = 0L;
+        else
+            this.totalPaymentCash = totalPaymentCash;
     }
 
     public Long getTotalPaymentBank() {
@@ -125,7 +134,10 @@ public class Financial {
     }
 
     public void setTotalPaymentBank(Long totalPaymentBank) {
-        this.totalPaymentBank = totalPaymentBank;
+        if (totalPaymentBank == null)
+            this.totalPaymentBank = 0L;
+        else
+            this.totalPaymentBank = totalPaymentBank;
     }
 
     public Long getBalanceBank() {
@@ -133,7 +145,10 @@ public class Financial {
     }
 
     public void setBalanceBank(Long balanceBank) {
-        this.balanceBank = balanceBank;
+        if (balanceBank == null)
+            this.balanceBank = 0L;
+        else
+            this.balanceBank = balanceBank;
     }
 
     public Long getBalanceCash() {
@@ -141,7 +156,10 @@ public class Financial {
     }
 
     public void setBalanceCash(Long balanceCash) {
-        this.balanceCash = balanceCash;
+        if (balanceCash == null)
+            this.balanceCash = 0L;
+        else
+            this.balanceCash = balanceCash;
     }
 
     public Long getAccountsReceivable() {
@@ -149,7 +167,10 @@ public class Financial {
     }
 
     public void setAccountsReceivable(Long accountsReceivable) {
-        this.accountsReceivable = accountsReceivable;
+        if (accountsReceivable == null)
+            this.accountsReceivable = 0L;
+        else
+            this.accountsReceivable = accountsReceivable;
     }
 
     public Long getAccountsPayable() {
@@ -157,7 +178,10 @@ public class Financial {
     }
 
     public void setAccountsPayable(Long accountsPayable) {
-        this.accountsPayable = accountsPayable;
+        if (accountsPayable == null)
+            this.accountsPayable = 0L;
+        else
+            this.accountsPayable = accountsPayable;
     }
 
     public Long getOndateAdmitedStudents() {
@@ -165,7 +189,10 @@ public class Financial {
     }
 
     public void setOndateAdmitedStudents(Long ondateAdmitedStudents) {
-        this.ondateAdmitedStudents = ondateAdmitedStudents;
+        if (ondateAdmitedStudents == null)
+            this.ondateAdmitedStudents = 0L;
+        else
+            this.ondateAdmitedStudents = ondateAdmitedStudents;
     }
 
     public Long getNewStudents() {
@@ -173,7 +200,10 @@ public class Financial {
     }
 
     public void setNewStudents(Long newStudents) {
-        this.newStudents = newStudents;
+        if (newStudents == null)
+            this.newStudents = 0L;
+        else
+            this.newStudents = newStudents;
     }
 
     @Override
