@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
@@ -44,10 +45,6 @@ public class UserController {
         modelAndView.addObject("users", userDao.getAll());
         modelAndView.addObject("roles", roleDao.getAll());
         modelAndView.addObject("organizationes", organizationDao.getAll());
-//        for (Role role : roleDao.getAll()) {
-//            System.out.println(role.getRoleName());
-//        }
-        modelAndView.addObject("message",  request.getParameter("message"));
         modelAndView.addObject("newUser", new User());
         modelAndView.addObject("newRole", new Role());
         modelAndView.setViewName("admin/adminUser");
@@ -55,15 +52,25 @@ public class UserController {
     }
 
     @RequestMapping(value="/saveUser", method = RequestMethod.POST)
-    public String saveUser(User user) {
+    public String saveUser(User user, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
+
+        for (User checkEmailUser : userDao.getAll()) {
+            if(user.getEmail().equals(checkEmailUser.getEmail())){
+                redirectAttributes.addFlashAttribute("message", " Your Email is Already Registered. Please Enter a New Email...");
+                redirectAttributes.addFlashAttribute("alertClass", "alert-warning");
+                return "redirect:/user/userPage";
+            }
+        }
+
         Optional<Role> role= roleDao.find(user.getRoleId());
         Set<Role> roles= new HashSet<Role>();
         roles.add(role.get());
         user.setRoles(roles);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.save(user);
-        modelAndView.addObject("message", " Data Has Been Saved...");
+        redirectAttributes.addFlashAttribute("message", "User Save Successfully...");
+        redirectAttributes.addFlashAttribute("alertClass", "alert-success");
         return "redirect:/user/userPage";
     }
 

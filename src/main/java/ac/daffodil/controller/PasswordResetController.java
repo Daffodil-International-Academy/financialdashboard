@@ -47,6 +47,12 @@ public class PasswordResetController {
             model.addAttribute("token", resetToken.getToken());
         }
 
+        for (PasswordResetToken passwordResetToken  :tokenRepository.findAll()) {
+            if(passwordResetToken.isExpired()){
+                tokenRepository.delete(passwordResetToken);
+            }
+        }
+
         if(request.isUserInRole("authority")){
             return "authority/authorityResetPassword";
         }else if(request.isUserInRole("centerhead")){
@@ -71,6 +77,7 @@ public class PasswordResetController {
         }
 
         PasswordResetToken token = tokenRepository.findByToken(form.getToken());
+        token.setExpiryDate(60);
         User user = token.getUser();
         String updatedPassword = mvcConfig.passwordEncoder().encode(form.getPassword());
 

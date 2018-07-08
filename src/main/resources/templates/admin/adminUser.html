@@ -15,7 +15,7 @@
     <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
 
-    <title>Title</title>
+    <title>User</title>
 
     <script>
         function roleFunction() {
@@ -33,6 +33,14 @@
 <body th:style="'background:url(' + @{/assets/images/background.jpg} + ');'">
 <th:block th:replace="admin/adminHeader :: header"/>
 <div class="container">
+
+    <div role="alert" th:if="${message}" th:class="${'alert alert-dismissible fade show ' + alertClass}">
+        <strong th:text="${message}"></strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
     <br/>
     <div class="row mb-4">
         <div class="col col-md-6">
