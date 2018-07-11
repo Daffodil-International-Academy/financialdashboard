@@ -44,7 +44,7 @@
     <br/>
     <div class="row mb-4">
         <div class="col col-md-6">
-            <form th:action="@{/user/saveUser}" method="post">
+            <form th:action="${newUser != null ? '/user/updateUser' : '/user/saveUser'}" method="post">
                 <div class="form-group">
                     <label for="id">ID: </label>
                     <input type="text" readonly="true" class="form-control" id="id" name="id" placeholder="Your User Id" th:field="${newUser.id}" autofocus="autofocus">
@@ -90,6 +90,7 @@
                 <label for="OrganizationId">Organization Id: </label>
                 <select class="form-control" id="selectOrganization" onchange="organizationFunction()">
                     <option disabled="disabled" selected="selected" > -- select the Organization ID: --</option>
+                    <option value="">All Organization</option>
                     <option th:each="organization : ${organizationes}"
                             th:value="${organization.organizationId}"
                             th:text="${organization.organizationName}+ ' (' +${organization.organizationId} + ') '"

@@ -74,6 +74,20 @@ public class UserController {
         return "redirect:/user/userPage";
     }
 
+    @RequestMapping(value="/updateUser", method = RequestMethod.POST)
+    public String updateUser(User user, RedirectAttributes redirectAttributes) {
+        ModelAndView modelAndView = new ModelAndView();
+        Optional<Role> role= roleDao.find(user.getRoleId());
+        Set<Role> roles= new HashSet<Role>();
+        roles.add(role.get());
+        user.setRoles(roles);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userDao.save(user);
+        redirectAttributes.addFlashAttribute("message", "User Update Successfully...");
+        redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+        return "redirect:/user/userPage";
+    }
+
     @RequestMapping(value={"/findForEditUser/{id}"}, method = RequestMethod.GET)
     public ModelAndView findForEditUser(@PathVariable(required = true, name = "id") Long id) {
         ModelAndView modelAndView = new ModelAndView();
