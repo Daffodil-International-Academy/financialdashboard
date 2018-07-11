@@ -81,7 +81,6 @@ public class UserController {
         Set<Role> roles= new HashSet<Role>();
         roles.add(role.get());
         user.setRoles(roles);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.save(user);
         redirectAttributes.addFlashAttribute("message", "User Update Successfully...");
         redirectAttributes.addFlashAttribute("alertClass", "alert-success");
