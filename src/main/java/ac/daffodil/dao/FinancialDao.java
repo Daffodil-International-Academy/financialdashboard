@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +23,9 @@ public class FinancialDao implements GenericInterface<Financial>{
     @Qualifier("financialRepository")
     @Autowired
     private FinancialRepository financialRepository;
+
+    @PersistenceContext
+    private EntityManager manager;
 
     @Override
     public Financial save(Financial financial) {
@@ -60,5 +65,10 @@ public class FinancialDao implements GenericInterface<Financial>{
 
     public Optional<Financial> findByOrganizationIdAndLastUpdateDate(Long id, Date date) {
         return financialRepository.findByOrganizationIdAndLastUpdateDate(id, date);
+    }
+
+    public List<Financial> sumAllFieldByDate() {
+        return financialRepository.sumAllFieldByDate();
+
     }
 }

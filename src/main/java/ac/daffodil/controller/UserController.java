@@ -51,38 +51,26 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(value="/saveUser", method = RequestMethod.POST)
-    public String saveUser(User user, RedirectAttributes redirectAttributes) {
-        ModelAndView modelAndView = new ModelAndView();
-
-        for (User checkEmailUser : userDao.getAll()) {
-            if(user.getEmail().equals(checkEmailUser.getEmail())){
-                redirectAttributes.addFlashAttribute("message", " Your Email is Already Registered. Please Enter a New Email...");
-                redirectAttributes.addFlashAttribute("alertClass", "alert-warning");
-                return "redirect:/user/userPage";
+    @RequestMapping(value="/saveUpdateUser", method = RequestMethod.POST)
+    public String saveUpdateUser(User user, RedirectAttributes redirectAttributes) {
+        if(user.getId() == null){
+            for (User checkEmailUser : userDao.getAll()) {
+                if(user.getEmail().equals(checkEmailUser.getEmail())){
+                    redirectAttributes.addFlashAttribute("message", " Your Email is Already Registered. Please Enter a New Email...");
+                    redirectAttributes.addFlashAttribute("alertClass", "alert-warning");
+                    return "redirect:/user/userPage";
+                }
             }
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            redirectAttributes.addFlashAttribute("message", "User Save Successfully...");
+        }else {
+            redirectAttributes.addFlashAttribute("message", "User Update Successfully...");
         }
-
-        Optional<Role> role= roleDao.find(user.getRoleId());
-        Set<Role> roles= new HashSet<Role>();
-        roles.add(role.get());
-        user.setRoles(roles);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userDao.save(user);
-        redirectAttributes.addFlashAttribute("message", "User Save Successfully...");
-        redirectAttributes.addFlashAttribute("alertClass", "alert-success");
-        return "redirect:/user/userPage";
-    }
-
-    @RequestMapping(value="/updateUser", method = RequestMethod.POST)
-    public String updateUser(User user, RedirectAttributes redirectAttributes) {
-        ModelAndView modelAndView = new ModelAndView();
         Optional<Role> role= roleDao.find(user.getRoleId());
         Set<Role> roles= new HashSet<Role>();
         roles.add(role.get());
         user.setRoles(roles);
         userDao.save(user);
-        redirectAttributes.addFlashAttribute("message", "User Update Successfully...");
         redirectAttributes.addFlashAttribute("alertClass", "alert-success");
         return "redirect:/user/userPage";
     }
@@ -107,8 +95,5 @@ public class UserController {
         modelAndView.addObject("message", " Data Has Been Deleted...");
         return "redirect:/user/userPage";
     }
-
-
-
 
 }

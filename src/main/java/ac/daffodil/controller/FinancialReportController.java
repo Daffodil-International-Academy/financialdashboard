@@ -46,53 +46,58 @@ public class FinancialReportController {
         return financialsByOId;
     }
 
-    @RequestMapping(value = "/admin/financialReport/findAllFinancialToday", method = RequestMethod.GET)
-    public Financial findAllFinancialToday() {
-        List<Financial> financials = financialDao.getAll();
-        Financial returnFinancial = new Financial();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Long collectionCash=0L;
-        Long collectionBank=0L;
-        Long totalPaymentCash=0L;
-        Long totalPaymentBank=0L;
-        Long balanceBank=0L;
-        Long balanceCash=0L;
-        Long accountsReceivable=0L;
-        Long accountsPayable=0L;
-        Long ondateAdmitedStudents=0L;
-        Long newStudents=0L;
-        for (Financial financial:financials) {
-            if(simpleDateFormat.format(financial.getLastUpdateDate()).equals(simpleDateFormat.format(new Date()))){
-                collectionCash = collectionCash + financial.getCollectionCash();
-                collectionBank = collectionBank + financial.getCollectionBank();
-                totalPaymentCash = totalPaymentCash + financial.getTotalPaymentCash();
-                totalPaymentBank = totalPaymentBank + financial.getTotalPaymentBank();
-                balanceBank = balanceBank + financial.getBalanceBank();
-                balanceCash = balanceCash + financial.getBalanceCash();
-                accountsReceivable = accountsReceivable + financial.getAccountsReceivable();
-                accountsPayable = accountsPayable + financial.getAccountsPayable();
-                ondateAdmitedStudents = ondateAdmitedStudents + financial.getOndateAdmitedStudents();
-                newStudents = newStudents + financial.getNewStudents();
-            }
-        }
-        returnFinancial.setCollectionCash(collectionCash);
-        returnFinancial.setCollectionBank(collectionBank);
-        returnFinancial.setTotalPaymentCash(totalPaymentCash);
-        returnFinancial.setTotalPaymentBank(totalPaymentBank);
-        returnFinancial.setBalanceBank(balanceBank);
-        returnFinancial.setBalanceCash(balanceCash);
-        returnFinancial.setAccountsReceivable(accountsReceivable);
-        returnFinancial.setAccountsPayable(accountsPayable);
-        returnFinancial.setOndateAdmitedStudents(ondateAdmitedStudents);
-        returnFinancial.setNewStudents(newStudents);
-        return returnFinancial;
-    }
+//    @RequestMapping(value = "/admin/financialReport/findAllFinancialToday", method = RequestMethod.GET)
+//    public Financial findAllFinancialToday() {
+//        List<Financial> financials = financialDao.getAll();
+//        Financial returnFinancial = new Financial();
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        Long collectionCash=0L;
+//        Long collectionBank=0L;
+//        Long totalPaymentCash=0L;
+//        Long totalPaymentBank=0L;
+//        Long balanceBank=0L;
+//        Long balanceCash=0L;
+//        Long accountsReceivable=0L;
+//        Long accountsPayable=0L;
+//        Long ondateAdmitedStudents=0L;
+//        Long newStudents=0L;
+//        for (Financial financial:financials) {
+//            if(simpleDateFormat.format(financial.getLastUpdateDate()).equals(simpleDateFormat.format(new Date()))){
+//                collectionCash = collectionCash + financial.getCollectionCash();
+//                collectionBank = collectionBank + financial.getCollectionBank();
+//                totalPaymentCash = totalPaymentCash + financial.getTotalPaymentCash();
+//                totalPaymentBank = totalPaymentBank + financial.getTotalPaymentBank();
+//                balanceBank = balanceBank + financial.getBalanceBank();
+//                balanceCash = balanceCash + financial.getBalanceCash();
+//                accountsReceivable = accountsReceivable + financial.getAccountsReceivable();
+//                accountsPayable = accountsPayable + financial.getAccountsPayable();
+//                ondateAdmitedStudents = ondateAdmitedStudents + financial.getOndateAdmitedStudents();
+//                newStudents = newStudents + financial.getNewStudents();
+//            }
+//        }
+//        returnFinancial.setCollectionCash(collectionCash);
+//        returnFinancial.setCollectionBank(collectionBank);
+//        returnFinancial.setTotalPaymentCash(totalPaymentCash);
+//        returnFinancial.setTotalPaymentBank(totalPaymentBank);
+//        returnFinancial.setBalanceBank(balanceBank);
+//        returnFinancial.setBalanceCash(balanceCash);
+//        returnFinancial.setAccountsReceivable(accountsReceivable);
+//        returnFinancial.setAccountsPayable(accountsPayable);
+//        returnFinancial.setOndateAdmitedStudents(ondateAdmitedStudents);
+//        returnFinancial.setNewStudents(newStudents);
+//        return returnFinancial;
+//    }
 
     @RequestMapping(value = { "/admin/financialReport/financialReportAllPage" }, method = RequestMethod.GET)
     public ModelAndView indexReportAll(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("admin/adminFinancialReportAll");
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/admin/financialReport/sumAllFieldByDate", method = RequestMethod.GET)
+    public List<Financial> sumAllFieldByDate() {
+        return financialDao.sumAllFieldByDate();
     }
 
 }

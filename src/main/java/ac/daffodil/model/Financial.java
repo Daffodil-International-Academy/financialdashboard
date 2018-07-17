@@ -10,6 +10,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "financial")
+
 public class Financial {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
