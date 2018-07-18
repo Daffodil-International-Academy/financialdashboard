@@ -32,6 +32,14 @@
     <br/>
     <div class="row mt-4 mb-4 justify-content-md-center">
         <div class="col col-md-12 mb-4 ">
+
+            <div role="alert" th:if="${message}" th:class="${'alert alert-dismissible fade show ' + alertClass}">
+                <strong th:text="${message}"></strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
             <form th:action="@{/user/financial/saveFinancial}" method="post">
                 <div class="form-group">
                     <label for="financialId">Financial id: </label>
@@ -39,18 +47,18 @@
                 </div>
                 <div class="form-group">
                     <label for="OrganizationId">Organization Id: </label>
-                    <select class="form-control" id="selectOrganization" onchange="myFunction()" required>
+                    <select class="form-control" id="selectOrganization" onchange="myFunction()" required="true">
                         <option disabled="disabled" selected="selected" > -- select the Organization ID: --</option>
                         <option th:each="organization : ${organizationes}"
                                 th:value="${organization.organizationId}"
                                 th:text="${organization.organizationName}+ ' (' +${organization.organizationId} + ') '"
                                 th:selected="${#strings.toString(organization.organizationId) == #strings.toString(newFinancial.organizationId)}"></option>
                     </select>
-                    <input type="text" hidden="true" readonly="true" class="form-control" id="OrganizationId" name="OrganizationId" placeholder="Your Organization Id" th:field="${newFinancial.organizationId}">
+                    <input required="true" type="text" hidden="true" readonly="true" class="form-control" id="OrganizationId" name="OrganizationId" placeholder="Your Organization Id" th:field="${newFinancial.organizationId}">
                 </div>
                 <div class="form-group">
                     <label for="lastUpdateDate">Date: </label>
-                    <input required type="date" class="form-control" id="lastUpdateDate" name="lastUpdateDate" th:field="${newFinancial.lastUpdateDate}">
+                    <input required="true" type="date" class="form-control" id="lastUpdateDate" name="lastUpdateDate" th:field="${newFinancial.lastUpdateDate}">
                 </div>
                 <div class="form-group">
                     <label for="collectionCash">Collection Cash: </label>

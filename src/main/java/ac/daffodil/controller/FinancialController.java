@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -39,7 +40,6 @@ public class FinancialController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("financials", financialDao.getAll());
         modelAndView.addObject("organizationes", organizationDao.getAll());
-        modelAndView.addObject("message",  request.getParameter("message"));
         Financial financial= new Financial();
         financial.setLastUpdateDate(new Date());
         modelAndView.addObject("newFinancial", financial);
@@ -48,10 +48,17 @@ public class FinancialController {
     }
 
     @RequestMapping(value="/admin/financial/saveFinancial", method = RequestMethod.POST)
-    public String saveFinancial(Financial financial) {
-        ModelAndView modelAndView = new ModelAndView();
+    public String saveFinancial(Financial financial, RedirectAttributes redirectAttributes) {
+        if (financial.getOrganizationId() == null){
+            redirectAttributes.addFlashAttribute("message", "Please Select Organization ID...");
+            redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
+            return "redirect:/admin/financial/financialPage";
+        }
         financialDao.save(financial);
-        modelAndView.addObject("message", " Data Has Been Saved...");
+        redirectAttributes.addFlashAttribute("message", " Financial Data Has Been Saved S" +
+                "" +
+                "uccessfully...");
+        redirectAttributes.addFlashAttribute("alertClass", "alert-success");
         return "redirect:/admin/financial/financialPage";
     }
 
@@ -67,11 +74,11 @@ public class FinancialController {
     }
 
     @RequestMapping(value="/admin/financial/deleteDepartment/{id}", method = RequestMethod.GET)
-    public String deleteFinancial(@PathVariable(required = true, name = "id") Long id) {
-        ModelAndView modelAndView = new ModelAndView();
+    public String deleteFinancial(@PathVariable(required = true, name = "id") Long id, RedirectAttributes redirectAttributes) {
         Optional<Financial> financial= financialDao.find(id);
         financialDao.delete(financial.get());
-        modelAndView.addObject("message", " Data Has Been Deleted...");
+        redirectAttributes.addFlashAttribute("message", "Your Financial Data Has Been Deleted...");
+        redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
         return "redirect:/admin/financial/financialPage";
     }
 
