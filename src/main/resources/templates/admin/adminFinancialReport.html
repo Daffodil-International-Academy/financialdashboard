@@ -21,6 +21,27 @@
     <script th:inline="javascript">
 
         var myApp = angular.module("FinancialApp", []);
+
+        myApp.filter('formatTaka', function() {
+            return function (input) {
+                if (! isNaN(input)) {
+                    var result = input.toString().split('.');
+
+                    var lastThree = result[0].substring(result[0].length - 3);
+                    var otherNumbers = result[0].substring(0, result[0].length - 3);
+                    if (otherNumbers != '')
+                        lastThree = ',' + lastThree;
+                    var output = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+
+                    if (result.length > 1) {
+                        output += "." + result[1];
+                    }
+
+                    return output;
+                }
+            }
+        });
+
         myApp.controller("FinancialCtrl", function ($scope, $http) {
             $scope.message="";
             $scope.error_message="";
@@ -130,46 +151,46 @@
                 <tbody>
                 <tr>
                     <td>Collection(Cash)</td>
-                    <td>{{financialReport.collectionCash}}</td>
+                    <td>{{financialReport.collectionCash | formatTaka}}</td>
                 </tr>
                 <tr>
                     <td>Collection(Bank)</td>
-                    <td>{{financialReport.collectionBank}}</td>
+                    <td>{{financialReport.collectionBank | formatTaka}}</td>
                 </tr>
                 <tr>
                     <th class="font-weight-bold">Total Collection</th>
-                    <td class="font-weight-bold">{{financialReport.collectionCash + financialReport.collectionBank}}</td>
+                    <td class="font-weight-bold">{{financialReport.collectionCash + financialReport.collectionBank | formatTaka}}</td>
                 </tr>
                 <tr>
                     <td>Total Payment(Cash)</td>
-                    <td>{{financialReport.totalPaymentCash}}</td>
+                    <td>{{financialReport.totalPaymentCash | formatTaka}}</td>
                 </tr>
                 <tr>
                     <td>Total Payment(Bank)</td>
-                    <td>{{financialReport.totalPaymentBank}}</td>
+                    <td>{{financialReport.totalPaymentBank | formatTaka}}</td>
                 </tr>
                 <tr>
                     <th class="font-weight-bold">Total Payment</th>
-                    <td class="font-weight-bold">{{financialReport.totalPaymentCash + financialReport.totalPaymentBank}}</td>
+                    <td class="font-weight-bold">{{financialReport.totalPaymentCash + financialReport.totalPaymentBank | formatTaka}}</td>
                 </tr>
                 <tr>
                     <th class="font-weight-bold" colspan="2">Balance (As on Date)</th>
                 </tr>
                 <tr>
                     <th>Bank</th>
-                    <td class="font-weight-bold">{{financialReport.balanceBank}}</td>
+                    <td class="font-weight-bold">{{financialReport.balanceBank | formatTaka}}</td>
                 </tr>
                 <tr>
                     <th>Cash</th>
-                    <td class="font-weight-bold">{{financialReport.balanceCash}}</td>
+                    <td class="font-weight-bold">{{financialReport.balanceCash | formatTaka}}</td>
                 </tr>
                 <tr>
                     <th><h6>Accounts Receivable (Month End)</h6></th>
-                    <td class="font-weight-bold">{{financialReport.accountsReceivable}}</td>
+                    <td class="font-weight-bold">{{financialReport.accountsReceivable | formatTaka}}</td>
                 </tr>
                 <tr>
                     <th><h6>Accounts Payable (Month End)</h6></th>
-                    <td class="font-weight-bold">{{financialReport.accountsPayable}}</td>
+                    <td class="font-weight-bold">{{financialReport.accountsPayable | formatTaka}}</td>
                 </tr>
                 <tr>
                     <th><h6>Admission/Client</h6></th>
@@ -177,11 +198,11 @@
                 </tr>
                 <tr>
                     <th>As On Date Admitted Students/Client</th>
-                    <td class="font-weight-bold">{{financialReport.ondateAdmitedStudents}}</td>
+                    <td class="font-weight-bold">{{financialReport.ondateAdmitedStudents | formatTaka}}</td>
                 </tr>
                 <tr>
                     <th>Todays new Admission/Client</th>
-                    <td class="font-weight-bold">{{financialReport.newStudents}}</td>
+                    <td class="font-weight-bold">{{financialReport.newStudents | formatTaka}}</td>
                 </tr>
                 </tbody>
             </table>
