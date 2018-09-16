@@ -7,13 +7,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" />
     <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>-->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.18/r-2.2.2/datatables.min.css"/>
 
     <title>Role</title>
 </head>
@@ -36,13 +40,14 @@
                 <a th:href="@{/role/rolePage}"class="btn btn-info btn-sm" role="button">New</a>
             </form>
         </div>
-        <div class="col col-md-6">
-            <table class="table">
+        <div class="col col-md-6 table-responsive col-sm-12 col-12">
+            <table id="example" class="table">
                 <thead class="thead-light">
                 <tr>
                     <th scope="col">Role Id</th>
                     <th scope="col">Role Name</th>
-                    <th scope="colgroup" colspan="2">Action</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col" >Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -58,6 +63,21 @@
     </div>
 </div>
 <!--<th:block th:replace="admin/adminFooter :: footer"/>-->
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.18/r-2.2.2/datatables.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready( function () {
+        $('#example').DataTable(
+            {
+                responsive:true
+            }
+        );
+    } );
+
+
+</script>
 
 </body>
 </html>

@@ -24,7 +24,7 @@ import java.util.Set;
  */
 @Controller
 public class
-signupController {
+    signupController {
 
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
