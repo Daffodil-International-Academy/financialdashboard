@@ -81,12 +81,12 @@
                     <input type="text" class="form-control" id="totalPaymentBank" name="totalPaymentBank" placeholder="Total Payment Bank" th:field="${newFinancial.totalPaymentBank}">
                 </div>
                 <div class="form-group">
-                    <label for="balanceBank">Balance Bank: </label>
-                    <input type="text" class="form-control" id="balanceBank" name="balanceBank" placeholder="Balance Bank" th:field="${newFinancial.balanceBank}">
+                    <label for="balanceBank">Balance Cash: </label>
+                    <input type="text" class="form-control" id="balanceCash" name="balanceCash" placeholder="Balance Cash" th:field="${newFinancial.balanceCash}">
                 </div>
                 <div class="form-group">
-                    <label for="balanceCash">Balance Cash: </label>
-                    <input type="text" class="form-control" id="balanceCash" name="balanceCash" placeholder="Balance Cash" th:field="${newFinancial.balanceCash}">
+                    <label for="balanceCash">Balance Bank: </label>
+                    <input type="text" class="form-control" id="balanceBank" name="balanceBank" placeholder="Balance Bank" th:field="${newFinancial.balanceBank}">
                 </div>
                 <div class="form-group">
                     <label for="accountsReceivable">Accounts Receivable: </label>
@@ -120,8 +120,8 @@
                     <th scope="col">Bank Collection</th>
                     <th scope="col">Total Cash Payment</th>
                     <th scope="col">Total Bank Payment</th>
-                    <th scope="col">Bank Balance</th>
                     <th scope="col">Cash Balance</th>
+                    <th scope="col">Bank Balance</th>
                     <th scope="col">Accounts Receivable</th>
                     <th scope="col">Accounts Payable</th>
                     <th scope="col">Admited Students(Ondate)</th>
@@ -138,8 +138,8 @@
                     <td th:text="${financial.collectionBank}">5</td>
                     <td th:text="${financial.totalPaymentCash}">6</td>
                     <td th:text="${financial.totalPaymentBank}">7</td>
-                    <td th:text="${financial.balanceBank}">8</td>
-                    <td th:text="${financial.balanceCash}">9</td>
+                    <td th:text="${financial.balanceCash}">8</td>
+                    <td th:text="${financial.balanceBank}">9</td>
                     <td th:text="${financial.accountsReceivable}">10</td>
                     <td th:text="${financial.accountsPayable}">11</td>
                     <td th:text="${financial.ondateAdmitedStudents}">12</td>

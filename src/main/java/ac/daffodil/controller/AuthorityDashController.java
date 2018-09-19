@@ -23,6 +23,13 @@ import java.util.List;
 @RestController
 public class AuthorityDashController {
 
+    String cashLabel[] = {"Collection Cash","Total Payment Cash","Balance Cash"};
+    List<Long> cashPoint = new ArrayList<Long>();
+    String bankLabel[] = {"Collection Bank","Total Payment Bank","Balance Bank"};
+    List<Long> bankPoint = new ArrayList<Long>();
+    List<String> organizationLabel;
+    List<Long> organizationPoint;
+
     @Autowired
     FinancialDao financialDao;
 
@@ -34,6 +41,41 @@ public class AuthorityDashController {
     @RequestMapping(value = { "/authority/authorityDashPage" }, method = RequestMethod.GET)
     public ModelAndView index(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        for (Financial finan : financialDao.sumAllFieldByDate()) {
+            if(format.format(finan.getLastUpdateDate()).equals(format.format(new Date()))){
+                cashPoint.add(finan.getCollectionCash());
+                cashPoint.add(finan.getTotalPaymentCash());
+                cashPoint.add(finan.getBalanceCash());
+
+                bankPoint.add(finan.getCollectionBank());
+                bankPoint.add(finan.getTotalPaymentBank());
+                bankPoint.add(finan.getBalanceBank());
+            }
+        }
+
+        organizationLabel = new ArrayList<String>();
+        organizationPoint = new ArrayList<Long>();
+
+        for (Financial fin : financialDao.getAll()) {
+            if(format.format(fin.getLastUpdateDate()).equals(format.format(new Date()))){
+                for(Organization organization : organizationDao.getAll()){
+                    if(organization.getOrganizationId() == fin.getOrganizationId()){
+                        organizationLabel.add(organization.getOrganizationName());
+                        organizationPoint.add(fin.getAccountsReceivable());
+                    }
+                }
+            }
+        }
+
+        modelAndView.addObject("cashLabel", cashLabel);
+        modelAndView.addObject("cashPoint", cashPoint);
+        modelAndView.addObject("bankLabel", bankLabel);
+        modelAndView.addObject("bankPoint", bankPoint);
+        modelAndView.addObject("organizationLabel", organizationLabel);
+        modelAndView.addObject("organizationPoint", organizationPoint);
+
         modelAndView.setViewName("authority/authorityDash");
         return modelAndView;
     }
