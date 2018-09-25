@@ -2,6 +2,7 @@ package ac.daffodil.controller;
 
 import ac.daffodil.dao.FinancialDao;
 import ac.daffodil.dao.OrganizationDao;
+import ac.daffodil.dao.UserDao;
 import ac.daffodil.model.Financial;
 import ac.daffodil.model.Organization;
 import ac.daffodil.model.User;
@@ -33,6 +34,9 @@ public class UserDashFinancialController {
     @Autowired
     OrganizationDao organizationDao;
 
+    @Autowired
+    UserDao userDao;
+
     @RequestMapping(value = { "/user/userDashPage" }, method = RequestMethod.GET)
     public ModelAndView index(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
@@ -46,16 +50,22 @@ public class UserDashFinancialController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentLoggedUser = (User) authentication.getPrincipal();
+        User findCurrentLoggedUser = userDao.find(currentLoggedUser.getId()).get();
+
         List<Financial> financialList = new ArrayList<Financial>();
         for (Financial financial:financialDao.getAll()) {
-            if(financial.getOrganizationId().equals(currentLoggedUser.getOrganizationId())){
-                financialList.add(financial);
+            for (Organization organization1 : findCurrentLoggedUser.getOrganizations()){
+                if(financial.getOrganizationId().equals(organization1.getOrganizationId())){
+                    financialList.add(financial);
+                }
             }
         }
         List<Organization> organizationList = new ArrayList<Organization>();
         for (Organization organization : organizationDao.getAll()) {
-            if(organization.getOrganizationId().equals(currentLoggedUser.getOrganizationId())){
-                organizationList.add(organization);
+            for (Organization organization1 : findCurrentLoggedUser.getOrganizations()){
+                if(organization.getOrganizationId().equals(organization1.getOrganizationId())){
+                    organizationList.add(organization);
+                }
             }
         }
 
@@ -89,16 +99,21 @@ public class UserDashFinancialController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentLoggedUser = (User) authentication.getPrincipal();
+        User findCurrentLoggedUser = userDao.find(currentLoggedUser.getId()).get();
         List<Financial> financialList = new ArrayList<Financial>();
         for (Financial newFinancial : financialDao.getAll()) {
-            if(newFinancial.getOrganizationId().equals(currentLoggedUser.getOrganizationId())){
-                financialList.add(newFinancial);
+            for (Organization organization1 : findCurrentLoggedUser.getOrganizations()){
+                if(newFinancial.getOrganizationId().equals(organization1.getOrganizationId())){
+                    financialList.add(newFinancial);
+                }
             }
         }
         List<Organization> organizationList = new ArrayList<Organization>();
         for (Organization organization : organizationDao.getAll()) {
-            if(organization.getOrganizationId().equals(currentLoggedUser.getOrganizationId())){
-                organizationList.add(organization);
+            for (Organization organization1 : findCurrentLoggedUser.getOrganizations()){
+                if(organization.getOrganizationId().equals(organization1.getOrganizationId())){
+                    organizationList.add(organization);
+                }
             }
         }
 

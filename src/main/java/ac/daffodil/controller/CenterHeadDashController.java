@@ -2,6 +2,7 @@ package ac.daffodil.controller;
 
 import ac.daffodil.dao.FinancialDao;
 import ac.daffodil.dao.OrganizationDao;
+import ac.daffodil.dao.UserDao;
 import ac.daffodil.model.Financial;
 import ac.daffodil.model.Organization;
 import ac.daffodil.model.User;
@@ -32,6 +33,9 @@ public class CenterHeadDashController {
     @Autowired
     OrganizationDao organizationDao;
 
+    @Autowired
+    UserDao userDao;
+
     List<Financial> financialsByDate= new ArrayList<Financial>();
 
     @RequestMapping(value = { "/centerHead/centerHeadDashPage" }, method = RequestMethod.GET)
@@ -52,10 +56,13 @@ public class CenterHeadDashController {
     public List<Organization> getAllOrganization() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentLoggedUser = (User) authentication.getPrincipal();
+        User findCurrentLoggedUser = userDao.find(currentLoggedUser.getId()).get();
         List<Organization> organizationList = new ArrayList<Organization>();
         for (Organization organization : organizationDao.getAll()) {
-            if(organization.getOrganizationId().equals(currentLoggedUser.getOrganizationId())){
-                organizationList.add(organization);
+            for (Organization organization1 : findCurrentLoggedUser.getOrganizations()){
+                if(organization.getOrganizationId().equals(organization1.getOrganizationId())){
+                    organizationList.add(organization);
+                }
             }
         }
         return organizationList;

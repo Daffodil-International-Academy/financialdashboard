@@ -49,8 +49,9 @@ public class User {
     @Column(name = "roleId")
     private long roleId;
 
-    @Column(name="organization_id")
-    private Long organizationId;
+    @Column(name="organizations")
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private List<Organization> organizations;
 
 
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
@@ -75,12 +76,20 @@ public class User {
         this.mobileNumber=user.getMobileNumber();
         this.lastName=user.getLastName();
         this.password=user.getPassword();
-        this.organizationId=user.getOrganizationId();
 
     }
 
-
-
+    public User(@Email(message = "*Please provide a valid Email") @NotEmpty(message = "*Please provide an email") String email, @Length(min = 4, message = "*Your password must have at least 4 characters") String password, @NotEmpty(message = "*Please provide your first name") String firstName, @NotEmpty(message = "*Please provide your last name") String lastName, @NotEmpty(message = "*Please provide your mobile number") String mobileNumber, int active, long roleId, Long organizationId, List<Organization> organizations, Set<Role> roles) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.mobileNumber = mobileNumber;
+        this.active = active;
+        this.roleId = roleId;
+        this.organizations = organizations;
+        this.roles = roles;
+    }
 
     public Long getId() {
         return id;
@@ -154,12 +163,12 @@ public class User {
         this.roles = roles;
     }
 
-    public Long getOrganizationId() {
-        return organizationId;
+    public List<Organization> getOrganizations() {
+        return organizations;
     }
 
-    public void setOrganizationId(Long organizationId) {
-        this.organizationId = organizationId;
+    public void setOrganizations(List<Organization> organizations) {
+        this.organizations = organizations;
     }
 
     @Override
@@ -173,7 +182,6 @@ public class User {
                 ", mobileNumber='" + mobileNumber + '\'' +
                 ", active=" + active +
                 ", roleId=" + roleId +
-                ", organizationId=" + organizationId +
                 ", roles=" + roles +
                 '}';
     }

@@ -15,8 +15,13 @@
     <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.min.js}"></script>-->
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" media="screen" th:href="@{/assets/css/mdb.min.css}" />
+    <!-- Datatable -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.18/r-2.2.2/datatables.min.css"/>
 
     <title>User</title>
@@ -25,11 +30,6 @@
         function roleFunction() {
             var x = document.getElementById("selectRole").value;
             document.getElementById("roleId").value = x;
-        }
-
-        function organizationFunction() {
-            var y = document.getElementById("selectOrganization").value;
-            document.getElementById("OrganizationId").value = y;
         }
     </script>
 
@@ -47,63 +47,60 @@
 
     <br/>
     <div class="row mb-4">
-        <div class="col col-md-6">
-            <form th:action="@{/user/saveUpdateUser}" method="post">
+        <div class="col col-md-12">
+            <form th:action="@{/user/saveUpdateUser}" th:object="${newUser}" method="post">
                 <div class="form-group">
                     <label for="id">ID: </label>
-                    <input type="text" readonly="true" class="form-control" id="id" name="id" placeholder="Your User Id" th:field="${newUser.id}" autofocus="autofocus">
+                    <input type="text" readonly="true" class="form-control" id="id" name="id" placeholder="Your User Id" th:field="*{id}" autofocus="autofocus">
                 </div>
                 <div class="form-group">
                     <label for="email">Email: </label>
-                    <input type="text" class="form-control" id="email" name="email" placeholder="Your email" th:field="${newUser.email}">
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Your email" th:field="*{email}">
                 </div>
                 <div class="form-group">
                     <label for="password">Password: </label>
-                    <input type="text" class="form-control" id="password" name="password" placeholder="Your Password" th:field="${newUser.password}">
+                    <input type="text" class="form-control" id="password" name="password" placeholder="Your Password" th:field="*{password}">
                 </div>
                 <div class="form-group">
                     <label for="firstName">First Name </label>
-                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Your firstName" th:field="${newUser.firstName}">
+                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Your firstName" th:field="*{firstName}">
                 </div>
                 <div class="form-group">
                     <label for="lastName">Last Name: </label>
-                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Your lastName" th:field="${newUser.lastName}">
+                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Your lastName" th:field="*{lastName}">
                 </div>
-        </div>
-        <div class="col col-md-6">
-            <div class="form-group">
-                <label for="mobileNumber">Mobile Number: </label>
-                <input type="text" class="form-control" id="mobileNumber" name="mobileNumber" placeholder="Your mobileNumber" th:field="${newUser.mobileNumber}">
-            </div>
-            <div class="form-group">
-                <label for="active">Active: </label>
-                <input type="text" class="form-control" id="active" name="active" placeholder="Your active" th:field="${newUser.active}">
-            </div>
-            <div class="form-group">
-                <label for="roleId">Role: </label>
-                <select class="form-control" id="selectRole" onchange="roleFunction()">
-                    <option disabled="disabled" selected="selected" > -- select the Roles: --</option>
-                    <option th:each="role : ${roles}"
-                            th:value="${role.id}"
-                            th:text="${role.roleName} + ' (' +${role.id} + ') '"
-                            th:selected="${#strings.toString(role.id) == #strings.toString(newUser.roleId)}"></option>
-                </select>
-                <input type="text" hidden="true" readonly="true" class="form-control" id="roleId" name="roleId" placeholder="Your roleId" th:field="${newUser.roleId}">
-            </div>
-            <div class="form-group">
-                <label for="OrganizationId">Organization Id: </label>
-                <select class="form-control" id="selectOrganization" onchange="organizationFunction()">
-                    <option disabled="disabled" selected="selected" > -- select the Organization ID: --</option>
-                    <option value="">All Organization</option>
-                    <option th:each="organization : ${organizationes}"
-                            th:value="${organization.organizationId}"
-                            th:text="${organization.organizationName}+ ' (' +${organization.organizationId} + ') '"
-                            th:selected="${#strings.toString(organization.organizationId) == #strings.toString(newUser.organizationId)}"></option>
-                </select>
-                <input type="text" hidden="true" readonly="true" class="form-control" id="OrganizationId" name="OrganizationId" placeholder="Your Organization Id" th:field="${newUser.organizationId}">
-            </div>
-            <button type="submit" class="btn btn-success btn-sm">Save</button>
-            <a th:href="@{/user/userPage}"class="btn btn-info btn-sm" role="button">New</a>
+                <div class="form-group">
+                    <label for="mobileNumber">Mobile Number: </label>
+                    <input type="text" class="form-control" id="mobileNumber" name="mobileNumber" placeholder="Your mobileNumber" th:field="*{mobileNumber}">
+                </div>
+                <div class="form-group">
+                    <label for="active">Active: </label>
+                    <input type="text" class="form-control" id="active" name="active" placeholder="Your active" th:field="*{active}">
+                </div>
+                <div class="form-group">
+                    <label for="roleId">Role: </label>
+                    <select class="mdb-select" id="selectRole" onchange="roleFunction()">
+                        <option disabled="disabled" selected="selected" > -- select the Roles: --</option>
+                        <option th:each="role : ${roles}"
+                                th:value="${role.id}"
+                                th:text="${role.roleName} + ' (' +${role.id} + ') '"
+                                th:selected="${#strings.toString(role.id) == #strings.toString(newUser.roleId)}"></option>
+                    </select>
+                    <input type="text" hidden="true" readonly="true" class="form-control" id="roleId" name="roleId" placeholder="Your roleId" th:field="*{roleId}">
+                </div>
+                <div class="form-group">
+                    <label for="OrganizationId">Organization: </label>
+                    <select class="mdb-select" id="OrganizationId" th:field="*{organizations}" multiple searchable="Search here..">
+                        <option disabled="disabled" selected="selected" value=""> -- select the Organization ID: --</option>
+                        <option value="">All Organization</option>
+                        <option th:each="organization : ${organizationes}"
+                                th:field="*{organizations}"
+                                th:value="${organization.organizationId}"
+                                th:text="${organization.organizationName}+ ' (' +${organization.organizationId} + ') '"></option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success btn-sm">Save</button>
+                <a th:href="@{/user/userPage}"class="btn btn-info btn-sm" role="button">New</a>
             </form>
         </div>
     </div>
@@ -132,7 +129,11 @@
                     <td th:text="${user.mobileNumber}">6</td>
                     <td th:text="${user.active}">7</td>
                     <td th:text="${user.roleId}">8</td>
-                    <td th:text="${user.organizationId}">8</td>
+                    <td>
+                        <div th:each="organization : ${user.organizations}">
+                            <span th:text="${organization.organizationName}"></span>
+                        </div>
+                    </td>
                     <td><a th:href="@{/user/findForEditUser/__${user.id}__}" class="btn btn-info btn-sm" role="button">Edit</a></td>
                     <!--<td><a th:href="@{/user/deleteUser/__${user.id}__}" class="btn btn-danger btn-sm" role="button">Delete</a></td>-->
                 </tr>
@@ -141,21 +142,31 @@
         </div>
     </div>
 </div>
-<!--<th:block th:replace="admin/adminFooter :: footer"/>-->
+<th:block th:replace="admin/adminFooter :: footer"/>
 
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<!-- JQuery & Datatable -->
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.3.1/dt-1.10.18/r-2.2.2/datatables.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" th:src="@{/assets/js/mdb.min.js}"></script>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 <script>
     $(document).ready( function () {
         $('#example').DataTable(
             {
-                responsive:true
+                responsive: true
             }
         );
+
+        // Material Select Initialization
+        $('.mdb-select').material_select();
     } );
-
-
 </script>
 
 </body>
