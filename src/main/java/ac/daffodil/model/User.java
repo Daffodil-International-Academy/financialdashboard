@@ -49,8 +49,7 @@ public class User {
     @Column(name = "roleId")
     private long roleId;
 
-    @Column(name="organizations")
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Organization> organizations;
 
 
